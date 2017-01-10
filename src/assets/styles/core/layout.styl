@@ -1,0 +1,78 @@
+body
+    -webkit-touch-callout: none
+    background: #fff
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+
+.lt-header
+    padding: 0 45px
+    width: 100%
+    height:40px
+    line-height: 40px
+    position: fixed
+    z-index: 1
+    box-sizing: border-box
+    background-color: #f7f7f7
+    box-shadow: 0 1px 6px #ccc
+
+    .title
+        color:#333
+        font-size: 18px
+        width: 80%
+        text-align: center
+        margin: 0 auto
+    
+    .arrow
+        border-left: 2px solid #d3d3d6
+        border-bottom: 2px solid #d3d3d6
+        width: 15px
+        height: 15px
+        display: inline-block
+        transform: rotate(45deg)
+        text-indent: -9999px
+        overflow: hidden
+        position: absolute
+        left: 10px
+        top: 12px
+        z-index:1
+    
+    .logout
+        position: absolute
+        right: 0
+        top: 0
+        color:#fff
+        padding: 0 30px
+        z-index: 1
+        cursor: pointer
+    
+    &~.lt-main
+        padding-top: 45px
+    
+
+
+.lt-footer
+    width: 100%
+    background: #fff
+    position: fixed
+    bottom:0
+    left: 0
+    box-sizing: border-box
+    padding: 10px 0
+    display: flex
+    z-index: 1
+    text-align: center
+    border-top: 1PX solid #dcdcdc
+    .tab
+        flex: 1
+        &:last-child
+            margin:0 0 0 15px
+        &:only-child
+            margin: 0 !important
+    &+.lt-main
+        padding-bottom: 41px
+
+.lt-main
+    background: #fff
