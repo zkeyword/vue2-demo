@@ -1,18 +1,22 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import loadingMutations from './loading/mutations'
+import mutations from './mutations'
+import actions from './action'
+import getters from './getters'
+// import checkout from './modules/checkout/checkout'
 
 Vue.use(Vuex)
 
-const loading = {
-    state: {
-        stack: []
-    },
-    mutations: loadingMutations
+const state = {
+    count: 0
 }
 
 export default new Vuex.Store({
+    state,
+    getters,
+    actions,
+    mutations,
     modules: {
-        loading
+        // checkout
     }
 })
