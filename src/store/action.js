@@ -8,13 +8,15 @@ export default {
     //     })
     // }
     getBaseInfo({ commit, state }, {params, success, error}) {
-        api.baseInfo(params).then(res => {
-            commit(BASEINFO, { data: res })
-            success(res)
-        }).catch(res => {
-            // error(res)
-            console.log(error)
-        })
+        api
+            .baseInfo(params)
+            .then(res => {
+                commit(BASEINFO, { data: res })
+                success && success(res)
+            })
+            .catch(res => {
+                error && error(res)
+            })
     },
     increment: ({ commit }) => commit(INCREMENT),
     decrement: ({ commit }) => commit(DECREMENT),
