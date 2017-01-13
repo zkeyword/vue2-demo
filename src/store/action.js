@@ -1,5 +1,5 @@
-import { baseInfo } from '../api'
-import { GET_DATA, INCREMENT, DECREMENT } from './types'
+import api from '../api'
+import { BASEINFO, INCREMENT, DECREMENT } from './types'
 
 export default {
     // getData({ commit, state }) {
@@ -7,9 +7,13 @@ export default {
     //         commit(GET_DATA, { data: res })
     //     })
     // }
-    getBaseInfo({ commit, state }) {
-        baseInfo().then(res => {
-            commit(GET_DATA, { data: res })
+    getBaseInfo({ commit, state }, {params, success, error}) {
+        api.baseInfo(params).then(res => {
+            commit(BASEINFO, { data: res })
+            success(res)
+        }).catch(res => {
+            // error(res)
+            console.log(error)
         })
     },
     increment: ({ commit }) => commit(INCREMENT),

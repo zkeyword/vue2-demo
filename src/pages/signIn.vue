@@ -2,7 +2,7 @@
     <section>
         <lt-header></lt-header>
         <div class="lt-main">
-            用户名 密码 登录     Clicked: {{ $store.state }} times, count is {{ evenOrOdd }}.
+            用户名 密码 登录 Clicked: {{ $store.state }} times, count is {{ evenOrOdd }}.
             <div>
                 <span @click="add">++++++++++++++++++</span>
                 <span @click="decrement">----------------</span>
@@ -38,6 +38,14 @@
         mounted() {
             this.$nextTick(() => {
                 // console.log(1)
+                this.getBaseInfo({
+                    params: {
+                        'xxx': 111
+                    },
+                    error() {
+                        console.log(12)
+                    }
+                })
             })
         },
         methods: {
@@ -45,7 +53,8 @@
                 'increment',
                 'decrement',
                 'incrementIfOdd',
-                'incrementAsync'
+                'incrementAsync',
+                'getBaseInfo'
             ]),
             add() {
                 // this.incrementIfOdd()
