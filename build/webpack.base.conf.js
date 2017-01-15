@@ -2,6 +2,8 @@ var path = require('path')
 var config = require('../config')
 var utils = require('./utils')
 var projectRoot = path.resolve(__dirname, '../')
+const vuxLoader = require('vux-loader')
+
 
 var env = process.env.NODE_ENV
 // check env & config/index.js to decide whether to enable CSS source maps for the
@@ -10,7 +12,7 @@ var cssSourceMapDev = (env === 'development' && config.dev.cssSourceMap)
 var cssSourceMapProd = (env === 'production' && config.build.productionSourceMap)
 var useCssSourceMap = cssSourceMapDev || cssSourceMapProd
 
-module.exports = {
+let webpackConfig = {
   entry: {
     app: './src/main.js'
   },
@@ -98,3 +100,14 @@ module.exports = {
     ]
   }
 }
+
+module.exports = vuxLoader.merge(webpackConfig, {
+  plugins: [
+    {
+      name: 'vux-ui'
+    },
+    {
+      name: 'duplicate-style'
+    }
+  ]
+})

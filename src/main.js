@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App'
 import RouterMap from './routers'
 import store from './store'
+import './assets/icomoon/style.styl'
 import './assets/styles/index.styl'
 
 /* eslint-disable no-new */

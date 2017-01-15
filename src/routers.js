@@ -7,25 +7,32 @@ let router = new VueRouter({
     routes: [
         {
             path: '/signUp',
-            meta: { auth: false },
+            name: 'signUp',
             component: resolve => require(['./pages/signUp'], resolve)
         },
         {
             path: '/forget',
-            meta: { auth: false },
+            name: 'forget',
             component: resolve => require(['./pages/forget'], resolve)
         },
         {
             path: '/signIn',
-            meta: { auth: false },
+            name: 'signIn',
             component: resolve => require(['./pages/signIn'], resolve)
         },
         {
             path: '/signOut',
+            name: 'signOut',
             component: resolve => require(['./pages/signOut'], resolve)
         },
         {
+            path: '/reset',
+            name: 'reset',
+            component: resolve => require(['./pages/reset'], resolve)
+        },
+        {
             path: '/home',
+            name: 'home',
             component: resolve => require(['./pages/home'], resolve)
         },
         {

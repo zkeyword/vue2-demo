@@ -8,7 +8,12 @@ import getters from './getters'
 Vue.use(Vuex)
 
 const state = {
-    count: 0
+    count: 0,
+    isLogin: false,
+    isShowToast: false,
+    toastText: '',
+    isShowLoading: false,
+    loadingText: '请稍候~~'
 }
 
 export default new Vuex.Store({

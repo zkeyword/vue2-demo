@@ -58,6 +58,10 @@ app.use(hotMiddleware)
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
 
+// mock data
+var mock = require('./mock');
+app.use('/', mock);
+
 var uri = 'http://localhost:' + port
 
 devMiddleware.waitUntilValid(function () {
@@ -72,6 +76,6 @@ module.exports = app.listen(port, function (err) {
 
   // when env is testing, don't need open it
   if (process.env.NODE_ENV !== 'testing') {
-    opn(uri)
+    // opn(uri)
   }
 })

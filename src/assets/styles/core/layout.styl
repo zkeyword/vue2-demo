@@ -10,40 +10,44 @@ body
 .lt-header
     padding: 0 45px
     width: 100%
-    height:40px
-    line-height: 40px
+    height: 44px
+    line-height: @height
     position: fixed
     z-index: 1
     box-sizing: border-box
-    background-color: #f7f7f7
-    box-shadow: 0 1px 6px #ccc
+    background-color: #1c1c20
+    top: 0
+    left: 0
+    right: 0
 
     .title
-        color:#333
+        color: #fff
         font-size: 18px
         width: 80%
         text-align: center
         margin: 0 auto
     
-    .arrow
-        border-left: 2px solid #d3d3d6
-        border-bottom: 2px solid #d3d3d6
-        width: 15px
-        height: 15px
+    .back
         display: inline-block
-        transform: rotate(45deg)
-        text-indent: -9999px
-        overflow: hidden
         position: absolute
-        left: 10px
-        top: 12px
+        left: 0
+        top: 0
         z-index:1
+        color: #fff
+        height: 44px
+        line-height: @height
+        padding: 0 0 0 30px
+        .icon-back
+            font-size: 18px
+            position: absolute
+            top: 13px
+            left: 10px
     
     .logout
         position: absolute
         right: 0
         top: 0
-        color:#fff
+        color: #fff
         padding: 0 30px
         z-index: 1
         cursor: pointer

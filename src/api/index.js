@@ -2,13 +2,13 @@ import axios from 'axios'
 export default {
     baseInfo(data) {
         return axios
-            .get('/json/test.json', {
+            .get('/api/test.json', {
                 params: data
             })
     },
     login(data) {
         return axios
-            .post('/json/test.json', {
+            .post('/api/login', {
                 params: data
             })
     }

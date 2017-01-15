@@ -1,16 +1,45 @@
 <template>
     <header class="lt-header">
-        <a href="javascript:history.back();" class="arrow">返回</a>
-        <h2 class="title">测试</h2>
+        <span class="back" @click="goBack">
+            <i class="icon icon-back"></i>
+            返回
+        </span>
+        <h2 class="title">{{title}}</h2>
+        <span class="btns">
+            <em v-for="item in btns">{{item}}</em>
+        </span>
     </header>
 </template>
 <script>
     export default {
         data() {
             return {
+                // route: '/'
             }
         },
-        components: {
+        props: {
+            showBack: {
+                type: Boolean,
+                default: true
+            },
+            title: {
+                type: String,
+                default: ''
+            },
+            btns: {
+                type: Array,
+                default: () => []
+            }
+        },
+        computed: {
+            route() {
+                return this.$route.path
+            }
+        },
+        methods: {
+            goBack() {
+                this.$router.back()
+            }
         }
     }
 </script>

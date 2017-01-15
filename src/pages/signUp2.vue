@@ -1,34 +1,34 @@
 <template>
-    <section class="page-forget page-signUp">
+    <section class="page-forget page-signUp page-signUp2">
         <lt-header :title="title"></lt-header>
         <div class="lt-main">
             <div class="form ui-form">
                 <div class="ui-cell">
-                    <span class="ui-label">手机号码</span>
-                    <input type="number" class="ui-input" placeholder="手机号将作为您的登录账号" v-model="mobile" maxlength="11">
+                    <span class="ui-label">第几代</span>
+                    <input type="number" class="ui-input" placeholder="请用数字输入，如16" v-model="mobile" maxlength="11">
                 </div>
                 <div class="ui-cell">
-                    <span class="ui-label">会员姓名</span>
-                    <input type="number" class="ui-input" placeholder="请输入您的真实姓名" v-model="mobile" maxlength="11">
+                    <span class="ui-label">辈   分</span>
+                    <input type="number" class="ui-input" placeholder="您的辈分" v-model="mobile" maxlength="11">
                 </div>
                 <div class="ui-cell">
-                    <span class="ui-label">登录密码</span>
-                    <input type="number" class="ui-input" placeholder="请设置您的登录密码" v-model="mobile" maxlength="11">
+                    <span class="ui-label">排   行</span>
+                    <input type="number" class="ui-input" placeholder="请输入您的排行" v-model="mobile" maxlength="11">
                 </div>
                 <div class="ui-cell">
-                    <span class="ui-label">验证码</span>
-                    <input type="number" class="ui-input" placeholder="6位短信验证码" v-model="code" maxlength="6">
-                    <span class="ui-btn general" @click="getCode" v-bind:class="isGetCode">
-                        {{codeText}}
-                        <em v-show="codeTime>0&&!isRequestCode">({{codeTime}}s)</em>
-                    </span>
+                    <span class="ui-label">主继承</span>
+                    <input type="number" class="ui-input" placeholder="请选择您的主继承" v-model="code" maxlength="6">
                 </div>
                 <div class="ui-cell">
-                    <span class="ui-label">家族标识</span>
-                    <input type="number" class="ui-input" placeholder="请输入您的家族标识" v-model="mobile" maxlength="11">
+                    <span class="ui-label">父亲姓名</span>
+                    <input type="number" class="ui-input" placeholder="请选择您的父亲姓名" v-model="mobile" maxlength="11">
+                </div>
+                <div class="ui-cell">
+                    <span class="ui-label">母亲姓名</span>
+                    <input type="number" class="ui-input" placeholder="母亲姓名" v-model="mobile" maxlength="11">
                 </div>
             </div>
-            <div class="ui-btn max" @click="login">下一步</div>
+            <div class="ui-btn max" @click="login">注册</div>
         </div>
     </section>
 </template>
