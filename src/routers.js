@@ -11,6 +11,11 @@ let router = new VueRouter({
             component: resolve => require(['./pages/signUp'], resolve)
         },
         {
+            path: '/signUp2',
+            name: 'signUp2',
+            component: resolve => require(['./pages/signUp2'], resolve)
+        },
+        {
             path: '/forget',
             name: 'forget',
             component: resolve => require(['./pages/forget'], resolve)

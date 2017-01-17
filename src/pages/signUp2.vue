@@ -9,32 +9,37 @@
                 </div>
                 <div class="ui-cell">
                     <span class="ui-label">辈   分</span>
-                    <input type="number" class="ui-input" placeholder="您的辈分" v-model="mobile" maxlength="11">
+                    <input type="text" class="ui-input" placeholder="您的辈分" v-model="mobile" maxlength="4">
                 </div>
                 <div class="ui-cell">
                     <span class="ui-label">排   行</span>
-                    <input type="number" class="ui-input" placeholder="请输入您的排行" v-model="mobile" maxlength="11">
+                    <input type="text" class="ui-input" placeholder="请输入您的排行" v-model="mobile" maxlength="11">
                 </div>
                 <div class="ui-cell">
                     <span class="ui-label">主继承</span>
-                    <input type="number" class="ui-input" placeholder="请选择您的主继承" v-model="code" maxlength="6">
+                    <input type="text" class="ui-input" placeholder="请选择您的主继承" v-model="code" @click="showMenus(1)">
+                    <i class="icon icon-right" @click="showMenus(1)"></i>
                 </div>
                 <div class="ui-cell">
                     <span class="ui-label">父亲姓名</span>
-                    <input type="number" class="ui-input" placeholder="请选择您的父亲姓名" v-model="mobile" maxlength="11">
+                    <input type="text" class="ui-input" placeholder="请选择您的父亲姓名" v-model="mobile" @click="showMenus(2)">
+                    <i class="icon icon-right" @click="showMenus(2)"></i>
                 </div>
                 <div class="ui-cell">
                     <span class="ui-label">母亲姓名</span>
-                    <input type="number" class="ui-input" placeholder="母亲姓名" v-model="mobile" maxlength="11">
+                    <input type="text" class="ui-input" placeholder="母亲姓名" v-model="mobile" @click="showMenus(3)">
+                    <i class="icon icon-right" @click="showMenus(3)"></i>
                 </div>
             </div>
-            <div class="ui-btn max" @click="login">注册</div>
+            <div class="ui-btn max">注册</div>
         </div>
+        <actionsheet v-model="isShow" :menus="menus" @on-click-menu="menusClick"></actionsheet>
     </section>
 </template>
 <script>
     import { ltHeader } from '../components/'
     import { mapGetters, mapActions } from 'vuex'
+    import { Actionsheet } from 'vux'
     export default {
         data() {
             return {
@@ -43,27 +48,21 @@
                 code: '',
                 isRequestCode: true,
                 codeText: '发送验证码',
-                codeTime: 60
+                codeTime: 60,
+                isShow: false,
+                menus: {},
+                fatherData: [],
+                motherData: []
             }
         },
         components: {
-            ltHeader
+            ltHeader,
+            Actionsheet
         },
         computed: {
             ...mapGetters([
                 'isLogin'
-            ]),
-            isGetCode() {
-                let isDisable = true
-                if (this.isRequestCode) {
-                    isDisable = this.mobile === ''
-                } else {
-                    isDisable = true
-                }
-                return {
-                    disable: isDisable
-                }
-            }
+            ])
         },
         mounted() {
             this.$nextTick(() => {
@@ -76,39 +75,27 @@
                 'showToast',
                 'showLoading'
             ]),
-            login() {
-                if (!this.mobile) return
-                if (!this.password) return
-                this.postLogin({
-                    params: {
-                        'mobile': this.mobile,
-                        'password': this.password
-                    },
-                    error() {
-                        console.log(12)
+            showMenus(type) {
+                if (type === 1) {
+                    this.menus = {
+                        1: '父亲',
+                        2: '母亲'
                     }
-                })
+                } else if (type === 2) {
+                    this.menus = {
+                        1: 'Take Photo',
+                        2: 'Choose from photos',
+                        3: 'Choose from photos'
+                    }
+                } else if (type === 3) {
+                    this.menus = {
+                        1: 'Take Photo'
+                    }
+                }
+                this.isShow = true
             },
-            getCode() {
-                // this.showLoading({
-                //    isShow: true,
-                //    text: '请稍等~~'
-                // })
-                if (!this.isRequestCode) return
-                let timer = setInterval(() => {
-                    --this.codeTime
-                    if (this.codeTime === 0) {
-                        this.codeTime = 0
-                        this.isRequestCode = true
-                        clearInterval(timer)
-                    }
-                }, 1000)
-                this.isRequestCode = false
-                this.codeText = '重新获取'
-                this.showToast({
-                    isShow: true,
-                    text: 'xxx'
-                })
+            menusClick(key) {
+                console.log(key)
             }
         }
     }
