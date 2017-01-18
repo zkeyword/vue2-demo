@@ -37,7 +37,7 @@
     </section>
 </template>
 <script>
-    import { ltHeader } from '../components/'
+    import { ltHeader } from 'components'
     import { mapGetters, mapActions } from 'vuex'
     import { Actionsheet } from 'vux'
     export default {

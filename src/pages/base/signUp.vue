@@ -1,28 +1,44 @@
 <template>
-    <section class="page-forget page-reset">
+    <section class="page-forget page-signUp">
         <lt-header :title="title"></lt-header>
         <div class="lt-main">
             <div class="form ui-form">
                 <div class="ui-cell">
-                    <span class="ui-label">新密码</span>
-                    <input type="number" class="ui-input" placeholder="请输入6-16新密码，区分大小写" v-model="mobile" maxlength="11">
+                    <span class="ui-label">手机号码</span>
+                    <input type="number" class="ui-input" placeholder="手机号将作为您的登录账号" v-model="mobile" maxlength="11">
                 </div>
                 <div class="ui-cell">
-                    <span class="ui-label">确认密码</span>
-                    <input type="number" class="ui-input" placeholder="请再次输入密码" v-model="code" maxlength="6">
+                    <span class="ui-label">会员姓名</span>
+                    <input type="number" class="ui-input" placeholder="请输入您的真实姓名" v-model="mobile" maxlength="11">
+                </div>
+                <div class="ui-cell">
+                    <span class="ui-label">登录密码</span>
+                    <input type="number" class="ui-input" placeholder="请设置您的登录密码" v-model="mobile" maxlength="11">
+                </div>
+                <div class="ui-cell">
+                    <span class="ui-label">验证码</span>
+                    <input type="number" class="ui-input" placeholder="6位短信验证码" v-model="code" maxlength="6">
+                    <span class="ui-btn general" @click="getCode" v-bind:class="isGetCode">
+                        {{codeText}}
+                        <em v-show="codeTime>0&&!isRequestCode">({{codeTime}}s)</em>
+                    </span>
+                </div>
+                <div class="ui-cell">
+                    <span class="ui-label">家族标识</span>
+                    <input type="number" class="ui-input" placeholder="请输入您的家族标识" v-model="mobile" maxlength="11">
                 </div>
             </div>
-            <div class="ui-btn max" @click="login">提交</div>
+            <div class="ui-btn max" @click="login">下一步</div>
         </div>
     </section>
 </template>
 <script>
-    import { ltHeader } from '../components/'
+    import { ltHeader } from 'components'
     import { mapGetters, mapActions } from 'vuex'
     export default {
         data() {
             return {
-                title: '重置密码',
+                title: '找回密码',
                 mobile: '',
                 code: '',
                 isRequestCode: true,

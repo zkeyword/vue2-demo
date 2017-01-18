@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'icomoon';
   src:
-    url('fonts/icomoon.ttf?2fi0a3') format('truetype'),
-    url('fonts/icomoon.woff?2fi0a3') format('woff'),
-    url('fonts/icomoon.svg?2fi0a3#icomoon') format('svg');
+    url('fonts/icomoon.ttf?rh2nbv') format('truetype'),
+    url('fonts/icomoon.woff?rh2nbv') format('woff'),
+    url('fonts/icomoon.svg?rh2nbv#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -23,6 +23,51 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-bianji:before {
+  content: "\e903";
+}
+.icon-dizhi:before {
+  content: "\e904";
+}
+.icon-xinxi:before {
+  content: "\e905";
+}
+.icon-user:before {
+  content: "\e906";
+}
+.icon-more:before {
+  content: "\e907";
+}
+.icon-jingli:before {
+  content: "\e908";
+}
+.icon-list:before {
+  content: "\e909";
+}
+.icon-love:before {
+  content: "\e90a";
+}
+.icon-del:before {
+  content: "\e90b";
+}
+.icon-user2:before {
+  content: "\e90c";
+}
+.icon-select:before {
+  content: "\e90d";
+}
+.icon-selected:before {
+  content: "\e90e";
+}
+.icon-xuanze:before {
+  content: "\e90f";
+}
+.icon-xuexi:before {
+  content: "\e910";
+}
+.icon-hongqi:before {
+  content: "\e911";
+}
 .icon-back:before {
   content: "\e900";
 }
