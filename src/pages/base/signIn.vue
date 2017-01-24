@@ -24,7 +24,7 @@
     </section>
 </template>
 <script>
-    import { mapGetters, mapActions } from 'vuex'
+    import { mapActions } from 'vuex'
     export default {
         data() {
             return {
@@ -34,9 +34,6 @@
                 password: ''
             }
         },
-        computed: mapGetters([
-            'isLogin'
-        ]),
         watch: {
             mobile() {
                 this.showInputClose()
@@ -54,12 +51,10 @@
                 if (!this.mobile) return
                 if (!this.password) return
                 this.postLogin({
+                    self: this,
                     params: {
                         'mobile': this.mobile,
                         'password': this.password
-                    },
-                    error() {
-                        console.log(12)
                     }
                 })
             },

@@ -1,0 +1,59 @@
+.ui-block
+    background: #fff
+    border-top: 1px solid #e0e0e0
+    border-bottom: 1px solid #e0e0e0
+    margin: 15px 0
+    padding: 0 0 0 15px
+    &:last-child
+        margin-top: 0
+    &:first-child
+        margin-top: 15px
+    .ui-cell
+        &:last-child
+            .text
+                border-color: #fff
+        .text
+            border-bottom: 1px solid #e0e0e0
+            font-size: 15px
+            flex: 1
+        .tag
+            width: 33px
+            position: relative
+            .icon
+                transform: translate(0, -50%)
+                top: 50%
+                left: 0
+                position: absolute
+                color: #a6a6a6
+                font-size: 20px
+            &.right
+                position: absolute
+                height: 100%
+                right: 0
+                color: #cacbcc
+                width: auto
+                min-width: 33px
+                max-width: 70%
+                overflow: hidden
+                .icon
+                    left: auto
+                    right: 15px
+                    font-size: 16px
+                    &+.value
+                        padding-right: 35px
+                .value
+                    height: 44px
+                    padding-right: 15px
+                    display: block
+                    text-align: right
+                    color: #999
+            &.left
+                position: absolute
+                height: 100%
+                left: 90px
+                width: auto
+                min-width: 33px
+                max-width: 70%
+    .logout
+        text-align: center
+        width: 100%

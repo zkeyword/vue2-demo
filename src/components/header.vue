@@ -6,7 +6,7 @@
         </span>
         <h2 class="title">{{title}}</h2>
         <span class="btns">
-            <em v-for="item in btns">{{item}}</em>
+            <em @click="onHaddle" v-if="showBtn">完成</em>
         </span>
     </header>
 </template>
@@ -26,18 +26,17 @@
                 type: String,
                 default: ''
             },
-            btns: {
-                type: Array,
-                default: () => []
-            }
-        },
-        computed: {
-            route() {
-                return this.$route.path
+            showBtn: {
+                type: Boolean,
+                default: false
             }
         },
         methods: {
             goBack() {
+                this.$router.back()
+            },
+            onHaddle() {
+                this.$emit('on-haddle')
                 this.$router.back()
             }
         }

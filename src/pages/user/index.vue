@@ -1,6 +1,6 @@
 <template>
     <section class="page-userIndex">
-        <lt-footer></lt-footer>
+        <lt-footer :type="3"></lt-footer>
         <div class="lt-main">
             <header>
                 <div class="avatar">
@@ -11,58 +11,60 @@
                     <div class="num">编号：95270036</div>
                 </div>
                 <div class="detail">
-                    个人资料
-                    <i class="icon icon-right"></i>
+                    <router-link :to="{ name: 'userInfo' }">
+                        个人资料
+                        <i class="icon icon-right"></i>
+                    </router-link>
                 </div>
             </header>
-            <div class="block">
-                <div class="ui-cell">
+            <div class="ui-block">
+                <div class="ui-cell" @click="jump('userSpouseList')">
                     <span class="tag"><i class="icon icon-love"></i></span>
                     <div class="text">配偶信息</div>
-                    <span class="tag arrow"><i class="icon icon-right"></i></span>
+                    <span class="tag right"><i class="icon icon-right"></i></span>
                 </div>
-                <div class="ui-cell">
+                <div class="ui-cell" @click="jump('userParent')">
                     <span class="tag"><i class="icon icon-user"></i></span>
                     <div class="text">父母信息</div>
-                    <span class="tag arrow"><i class="icon icon-right"></i></span>
+                    <span class="tag right"><i class="icon icon-right"></i></span>
                 </div>
-                <div class="ui-cell">
+                <div class="ui-cell" @click="jump('userChildren')">
                     <span class="tag"><i class="icon icon-xinxi"></i></span>
                     <div class="text">儿女信息</div>
-                    <span class="tag arrow"><i class="icon icon-right"></i></span>
+                    <span class="tag right"><i class="icon icon-right"></i></span>
                 </div>
                 <div class="ui-cell">
                     <span class="tag"><i class="icon icon-dizhi"></i></span>
                     <div class="text">主要地址</div>
-                    <span class="tag arrow"><i class="icon icon-right"></i></span>
+                    <span class="tag right"><i class="icon icon-right"></i></span>
                 </div>
-                <div class="ui-cell">
+                <div class="ui-cell" @click="jump('userLearning')">
                     <span class="tag"><i class="icon icon-xuexi"></i></span>
                     <div class="text">学习经历</div>
-                    <span class="tag arrow"><i class="icon icon-right"></i></span>
+                    <span class="tag right"><i class="icon icon-right"></i></span>
                 </div>
-                <div class="ui-cell">
+                <div class="ui-cell" @click="jump('userWork')">
                     <span class="tag"><i class="icon icon-jingli"></i></span>
                     <div class="text">工作经历</div>
-                    <span class="tag arrow"><i class="icon icon-right"></i></span>
+                    <span class="tag right"><i class="icon icon-right"></i></span>
                 </div>
-                <div class="ui-cell">
+                <div class="ui-cell" @click="jump('userMain')">
                     <span class="tag"><i class="icon icon-hongqi"></i></span>
                     <div class="text">主要经历</div>
-                    <span class="tag arrow"><i class="icon icon-right"></i></span>
+                    <span class="tag right"><i class="icon icon-right"></i></span>
                 </div>
                 <div class="ui-cell">
                     <span class="tag"><i class="icon icon-list"></i></span>
                     <div class="text">户主户口</div>
-                    <span class="tag arrow"><i class="icon icon-right"></i></span>
+                    <span class="tag right"><i class="icon icon-right"></i></span>
                 </div>
                 <div class="ui-cell">
                     <span class="tag"><i class="icon icon-more"></i></span>
                     <div class="text">更多</div>
-                    <span class="tag arrow"><i class="icon icon-right"></i></span>
+                    <span class="tag right"><i class="icon icon-right"></i></span>
                 </div>
             </div>
-            <div class="block">
+            <div class="ui-block">
                 <div class="ui-cell" @click="logout">
                     <div class="logout">退出登录</div>
                 </div>
@@ -72,6 +74,7 @@
 </template>
 <script>
     import { ltFooter } from 'components'
+    import { delCookie } from 'utils/cookie'
     import { mapGetters, mapActions } from 'vuex'
     export default {
         data() {
@@ -115,15 +118,8 @@
                 'showLoading'
             ]),
             logout() {
-                this.postLogin({
-                    params: {
-                        'mobile': this.mobile,
-                        'password': this.password
-                    },
-                    error() {
-                        console.log(12)
-                    }
-                })
+                delCookie('isLogin')
+                this.$router.push({ name: 'signIn' })
             },
             getCode() {
                 // this.showLoading({
@@ -145,6 +141,9 @@
                     isShow: true,
                     text: 'xxx'
                 })
+            },
+            jump(name) {
+                this.$router.push({ name: name })
             }
         }
     }

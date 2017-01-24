@@ -1,27 +1,13 @@
 <template>
-    <section class="page-forget">
-        <lt-header :title="title"></lt-header>
+    <section class="page-userIndex">
+        <lt-footer :type="1"></lt-footer>
         <div class="lt-main">
-            <div class="form ui-form">
-                <div class="ui-cell">
-                    <span class="ui-label">手机号码</span>
-                    <input type="number" class="ui-input" placeholder="请注册手机号" v-model="mobile" maxlength="11">
-                </div>
-                <div class="ui-cell">
-                    <span class="ui-label">验证码</span>
-                    <input type="number" class="ui-input" placeholder="6位短信验证码" v-model="code" maxlength="6">
-                    <span class="ui-btn general" @click="getCode" v-bind:class="isGetCode">
-                        {{codeText}}
-                        <em v-show="codeTime>0&&!isRequestCode">({{codeTime}}s)</em>
-                    </span>
-                </div>
-            </div>
-            <div class="ui-btn max" @click="login">下一步</div>
+            index
         </div>
     </section>
 </template>
 <script>
-    import { ltHeader } from 'components'
+    import { ltFooter } from 'components'
     import { mapGetters, mapActions } from 'vuex'
     export default {
         data() {
@@ -35,7 +21,7 @@
             }
         },
         components: {
-            ltHeader
+            ltFooter
         },
         computed: {
             ...mapGetters([
@@ -60,11 +46,27 @@
         },
         methods: {
             ...mapActions([
-                'postSendSms'
+                'postLogin',
+                'showToast',
+                'showLoading'
             ]),
+            logout() {
+                this.postLogin({
+                    params: {
+                        'mobile': this.mobile,
+                        'password': this.password
+                    },
+                    error() {
+                        console.log(12)
+                    }
+                })
+            },
             getCode() {
+                // this.showLoading({
+                //    isShow: true,
+                //    text: '请稍等~~'
+                // })
                 if (!this.isRequestCode) return
-                if (!this.mobile) return
                 let timer = setInterval(() => {
                     --this.codeTime
                     if (this.codeTime === 0) {
@@ -75,10 +77,9 @@
                 }, 1000)
                 this.isRequestCode = false
                 this.codeText = '重新获取'
-                this.postSendSms({
-                    params: {
-                        'mobile': this.mobile
-                    }
+                this.showToast({
+                    isShow: true,
+                    text: 'xxx'
                 })
             }
         }

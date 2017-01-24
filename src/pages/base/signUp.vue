@@ -9,11 +9,11 @@
                 </div>
                 <div class="ui-cell">
                     <span class="ui-label">会员姓名</span>
-                    <input type="number" class="ui-input" placeholder="请输入您的真实姓名" v-model="mobile" maxlength="11">
+                    <input type="number" class="ui-input" placeholder="请输入您的真实姓名" v-model="realname" maxlength="11">
                 </div>
                 <div class="ui-cell">
                     <span class="ui-label">登录密码</span>
-                    <input type="number" class="ui-input" placeholder="请设置您的登录密码" v-model="mobile" maxlength="11">
+                    <input type="number" class="ui-input" placeholder="请设置您的登录密码" v-model="password" maxlength="11">
                 </div>
                 <div class="ui-cell">
                     <span class="ui-label">验证码</span>
@@ -25,22 +25,25 @@
                 </div>
                 <div class="ui-cell">
                     <span class="ui-label">家族标识</span>
-                    <input type="number" class="ui-input" placeholder="请输入您的家族标识" v-model="mobile" maxlength="11">
+                    <input type="number" class="ui-input" placeholder="请输入您的家族标识" v-model="family_sn" maxlength="11">
                 </div>
             </div>
-            <div class="ui-btn max" @click="login">下一步</div>
+            <div class="ui-btn max" @click="verifySms">下一步</div>
         </div>
     </section>
 </template>
 <script>
     import { ltHeader } from 'components'
-    import { mapGetters, mapActions } from 'vuex'
+    import { mapActions } from 'vuex'
     export default {
         data() {
             return {
-                title: '找回密码',
+                title: '注册',
                 mobile: '',
                 code: '',
+                password: '',
+                realname: '',
+                family_sn: '',
                 isRequestCode: true,
                 codeText: '发送验证码',
                 codeTime: 60
@@ -50,9 +53,6 @@
             ltHeader
         },
         computed: {
-            ...mapGetters([
-                'isLogin'
-            ]),
             isGetCode() {
                 let isDisable = true
                 if (this.isRequestCode) {
@@ -72,29 +72,14 @@
         },
         methods: {
             ...mapActions([
-                'postLogin',
-                'showToast',
-                'showLoading'
+                'postSendSms',
+                'postVerifySms',
+                'postRegister',
+                'showToast'
             ]),
-            login() {
-                if (!this.mobile) return
-                if (!this.password) return
-                this.postLogin({
-                    params: {
-                        'mobile': this.mobile,
-                        'password': this.password
-                    },
-                    error() {
-                        console.log(12)
-                    }
-                })
-            },
             getCode() {
-                // this.showLoading({
-                //    isShow: true,
-                //    text: '请稍等~~'
-                // })
                 if (!this.isRequestCode) return
+                if (!this.mobile) return
                 let timer = setInterval(() => {
                     --this.codeTime
                     if (this.codeTime === 0) {
@@ -105,9 +90,30 @@
                 }, 1000)
                 this.isRequestCode = false
                 this.codeText = '重新获取'
-                this.showToast({
-                    isShow: true,
-                    text: 'xxx'
+                this.postSendSms({
+                    params: {
+                        'mobile': this.mobile
+                    }
+                })
+            },
+            verifySms() {
+                let self = this
+                self.postVerifySms({
+                    params: {
+                        'code': self.code
+                    },
+                    success() {
+                        self.postRegister({
+                            self,
+                            params: {
+                                mobile: self.mobile,
+                                code: self.code,
+                                password: self.password,
+                                realname: self.realname,
+                                family_sn: self.family_sn
+                            }
+                        })
+                    }
                 })
             }
         }

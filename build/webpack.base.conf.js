@@ -28,7 +28,9 @@ let webpackConfig = {
       'vue$': 'vue/dist/vue.common.js',
       'src': path.resolve(__dirname, '../src'),
       'assets': path.resolve(__dirname, '../src/assets'),
-      'components': path.resolve(__dirname, '../src/components')
+      'components': path.resolve(__dirname, '../src/components'),
+      'store': path.resolve(__dirname, '../src/store'),
+      'utils': path.resolve(__dirname, '../src/utils')
     }
   },
   resolveLoader: {

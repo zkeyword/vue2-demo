@@ -4,5 +4,9 @@ export default {
     isShowToast: state => state.isShowToast,
     toastText: state => state.toastText,
     isShowLoading: state => state.isShowLoading,
-    loadingText: state => state.loadingText
+    loadingText: state => state.loadingText,
+    userFormName: state => state.userFormName,
+    userFormValue: state => state.userFormValue,
+    userFormType: state => state.userFormType,
+    userFormTitle: state => state.userFormTitle
 }
