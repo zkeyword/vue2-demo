@@ -1,0 +1,20 @@
+{
+    "parserOptions": {
+        "ecmaVersion": 6, //指定ECMAScript支持的版本，6为ES6
+        "sourceType": "module" //指定来源的类型，有两种”script”或”module”
+    },
+    "rules": {
+        "indent": [
+            "error",
+            4
+        ],
+        "space-before-function-paren": [
+            "error",
+            "never"
+        ],
+        // allow paren-less arrow functions
+        "arrow-parens": 0,
+        // allow async-await
+        "'generator-star-spacing": 0
+    }
+}
