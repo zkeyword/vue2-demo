@@ -13,11 +13,11 @@
                 </div>
                 <div class="ui-cell">
                     <span class="ui-label">登录密码</span>
-                    <input type="number" class="ui-input" placeholder="请设置您的登录密码" v-model="password" maxlength="11">
+                    <input type="number" class="ui-input" placeholder="请设置您的登录密码" v-model="password" maxlength="16">
                 </div>
                 <div class="ui-cell">
                     <span class="ui-label">验证码</span>
-                    <input type="number" class="ui-input" placeholder="6位短信验证码" v-model="code" maxlength="6">
+                    <input type="number" class="ui-input" placeholder="4位短信验证码" v-model="code" maxlength="6">
                     <span class="ui-btn general" @click="getCode" v-bind:class="isGetCode">
                         {{codeText}}
                         <em v-show="codeTime>0&&!isRequestCode">({{codeTime}}s)</em>
@@ -25,7 +25,7 @@
                 </div>
                 <div class="ui-cell">
                     <span class="ui-label">家族标识</span>
-                    <input type="number" class="ui-input" placeholder="请输入您的家族标识" v-model="family_sn" maxlength="11">
+                    <input type="number" class="ui-input" placeholder="请输入您的家族标识" v-model="family_sn">
                 </div>
             </div>
             <div class="ui-btn max" v-bind:class="isNext" @click="verifySms">下一步</div>
@@ -54,8 +54,12 @@
         },
         computed: {
             isNext() {
-                if (!this.mobile || !this.code || !this.password || !this.realname || !this.family_sn) {
-
+                let isDisable = false
+                if (!this.mobile || !/1[34578]{1}\d{9}$/.test(this.mobile) || !this.code || !this.password || !this.realname || !this.family_sn) {
+                    isDisable = true
+                }
+                return {
+                    disable: isDisable
                 }
             },
             isGetCode() {
@@ -78,8 +82,8 @@
         methods: {
             ...mapActions([
                 'postSendSms',
-            'postVerifySms',
-            'postRegister'
+                'postVerifySms',
+                'postRegister'
             ]),
             getCode() {
                 if (!this.isRequestCode) return

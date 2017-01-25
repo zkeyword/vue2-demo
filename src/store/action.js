@@ -94,11 +94,11 @@ export default {
         api
             .register(params)
             .then(res => {
-                let {msg, code} = res.data
+                let {msg, code, data} = res.data
                 state.isShowLoading = false
                 if (Number(code) === 0) {
                     commit(SHOWTOAST, { text: msg })
-                    self.$router.push({ name: 'signUp2', query: {family_sn: self.family_sn} })
+                    self.$router.push({ name: 'signUp2', query: {family: self.family_sn, token: data.access_token} })
                 } else {
                     commit(SHOWTOAST, { text: msg })
                 }

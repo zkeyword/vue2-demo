@@ -5,7 +5,7 @@
             <div class="form ui-form">
                 <div class="ui-cell">
                     <span class="ui-label">第几代</span>
-                    <input type="number" class="ui-input" placeholder="请用数字输入，如16" v-model="generations" maxlength="11">
+                    <input type="number" class="ui-input" placeholder="请用数字输入，如16" v-model="generations" maxlength="11" @blur="blur">
                 </div>
                 <div class="ui-cell">
                     <span class="ui-label">辈   分</span>
@@ -15,22 +15,22 @@
                     <span class="ui-label">排   行</span>
                     <input type="number" class="ui-input" placeholder="请输入您的排行" v-model="rank" maxlength="11">
                 </div>
-                <div class="ui-cell">
+                <div class="ui-cell" @click="showMenus(1)" v-if="isShowParent">
                     <span class="ui-label">主继承</span>
-                    <input type="text" class="ui-input" placeholder="请选择您的主继承" v-model="inherit" @click="showMenus(1)">
-                    <i class="icon icon-right" @click="showMenus(1)"></i>
+                    <input type="text" class="ui-input" placeholder="请选择您的主继承" v-model="inherit" disabled>
+                    <i class="icon icon-right"></i>
                 </div>
-                <div class="ui-cell">
+                <div class="ui-cell" @click="showMenus(2)" v-if="isShowParent">
                     <span class="ui-label">父亲姓名</span>
-                    <input type="text" class="ui-input" placeholder="请选择您的父亲姓名" v-model="father_name" @click="showMenus(2)">
-                    <i class="icon icon-right" @click="showMenus(2)"></i>
+                    <input type="text" class="ui-input" placeholder="请选择您的父亲姓名" v-model="father_name" disabled>
+                    <i class="icon icon-right"></i>
                 </div>
-                <div class="ui-cell">
+                <div class="ui-cell" v-if="isShowParent">
                     <span class="ui-label">母亲姓名</span>
-                    <input type="text" class="ui-input" placeholder="母亲姓名" v-model="mother_name">
+                    <input type="text" class="ui-input" placeholder="母亲姓名" v-model="mother_name" disabled>
                 </div>
             </div>
-            <div class="ui-btn max" @click="register">注册</div>
+            <div class="ui-btn max" v-bind:class="isNext" @click="register">注册</div>
         </div>
         <actionsheet v-model="isShow" :menus="menus" @on-click-menu="menusClick"></actionsheet>
     </section>
@@ -43,6 +43,8 @@
         data() {
             return {
                 title: '注册',
+                token: '',
+                family: '',
                 generations: '',
                 hierarchies_name: '',
                 rank: '',
@@ -56,28 +58,30 @@
                 type: '',
                 menus: {},
                 fatherData: {},
-                motherData: {}
+                fatherIdData: {},
+                isShowParent: false
             }
         },
         components: {
             ltHeader,
             Actionsheet
         },
+        computed: {
+            isNext() {
+                let isDisable = false
+                if (!this.mobile || !/1[34578]{1}\d{9}$/.test(this.mobile) || !this.code || !this.password || !this.realname || !this.family_sn) {
+                    isDisable = true
+                }
+                return {
+                    disable: isDisable
+                }
+            }
+        },
         mounted() {
             this.$nextTick(() => {
-                let self = this
-                let {family_sn} = this.$route.query
-                this.getParent({
-                    params: {
-                        generations: this.generations,
-                        family_sn: family_sn
-                    },
-                    success(data) {
-                        for (let i = 0, len = data.length; i < len; i++) {
-                            self.fatherData[`${data[i].id}`] = data[i].name
-                        }
-                    }
-                })
+                let {family, token} = this.$route.query
+                this.family = family
+                this.token = token
             })
         },
         methods: {
@@ -105,9 +109,11 @@
                     this.inherit = this.menus[key]
                 } else if (this.type === 2) {
                     this.father_name = this.menus[key]
-                    this.father_id = key
+                    this.father_id = this.fatherIdData[key]
                     this.getSpouseList({
                         params: {
+                            token: this.token,
+                            family_sn: this.family,
                             member_id: key
                         },
                         success(data) {
@@ -120,6 +126,8 @@
             register() {
                 this.postPerfectInfo({
                     params: {
+                        token: this.token,
+                        family_sn: this.family,
                         generations: this.generations,
                         hierarchies_name: this.hierarchies_name,
                         rank: this.rank,
@@ -129,6 +137,23 @@
                         father_id: this.father_id,
                         mother_name: this.mother_name,
                         mother_id: this.mother_id
+                    }
+                })
+            },
+            blur() {
+                let self = this
+                this.getParent({
+                    params: {
+                        token: this.token,
+                        family_sn: this.family,
+                        generations: this.generations
+                    },
+                    success(data) {
+                        for (let i = 0, len = data.length; i < len; i++) {
+                            self.fatherData[`${data[i].member_id}`] = data[i].name
+                            self.fatherIdData[`${data[i].member_id}`] = data[i].id
+                        }
+                        self.isShowParent = true
                     }
                 })
             }

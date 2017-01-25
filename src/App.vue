@@ -7,7 +7,7 @@
 </template>
 <script>
     import { Toast, Loading } from 'vux'
-    import { mapGetters } from 'vuex'
+    import { mapGetters, mapActions } from 'vuex'
     export default {
         name: 'app',
         computed: mapGetters([
@@ -25,7 +25,7 @@
                 'showToast'
             ]),
             onHide() {
-                this.showToast()
+                this.showToast({isShow: false})
             }
         }
     }

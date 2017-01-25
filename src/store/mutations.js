@@ -4,11 +4,7 @@ import {
     SHOWTOAST,
     HIDETOAST,
     SHOWLOADING,
-    HIDELOADING,
-    USERFORMTITLE,
-    USERFORMTYPE,
-    USERFORMNAME,
-    USERFORMVALUE
+    HIDELOADING
 } from './types'
 
 export default {

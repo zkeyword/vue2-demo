@@ -9,20 +9,20 @@
                 </div>
                 <div class="ui-cell">
                     <span class="ui-label">验证码</span>
-                    <input type="number" class="ui-input" placeholder="6位短信验证码" v-model="code" maxlength="6">
+                    <input type="number" class="ui-input" placeholder="4位短信验证码" v-model="code" maxlength="6">
                     <span class="ui-btn general" @click="getCode" v-bind:class="isGetCode">
                         {{codeText}}
                         <em v-show="codeTime>0&&!isRequestCode">({{codeTime}}s)</em>
                     </span>
                 </div>
             </div>
-            <div class="ui-btn max" @click="login">下一步</div>
+            <div class="ui-btn max" v-bind:class="isNext" @click="next">下一步</div>
         </div>
     </section>
 </template>
 <script>
     import { ltHeader } from 'components'
-    import { mapGetters, mapActions } from 'vuex'
+    import { mapActions } from 'vuex'
     export default {
         data() {
             return {
@@ -38,9 +38,15 @@
             ltHeader
         },
         computed: {
-            ...mapGetters([
-                'isLogin'
-            ]),
+            isNext() {
+                let isDisable = false
+                if (!this.mobile || !/1[34578]{1}\d{9}$/.test(this.mobile) || !this.code) {
+                    isDisable = true
+                }
+                return {
+                    disable: isDisable
+                }
+            },
             isGetCode() {
                 let isDisable = true
                 if (this.isRequestCode) {
@@ -80,6 +86,9 @@
                         'mobile': this.mobile
                     }
                 })
+            },
+            next() {
+
             }
         }
     }

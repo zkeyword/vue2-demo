@@ -45,11 +45,13 @@
         },
         methods: {
             ...mapActions([
-                'postLogin'
+                'postLogin',
+                'showToast'
             ]),
             login() {
-                if (!this.mobile) return
-                if (!this.password) return
+                if (!this.mobile) return this.showToast({ isShow: true, text: '手机号不能为空!' })
+                if (!this.password) return this.showToast({ isShow: true, text: '密码不能为空!' })
+                if (!/1[34578]{1}\d{9}$/.test(this.mobile)) return this.showToast({ isShow: true, text: '手机号不正确!' })
                 this.postLogin({
                     self: this,
                     params: {
