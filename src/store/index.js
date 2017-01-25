@@ -13,11 +13,7 @@ const state = {
     isShowToast: false,
     toastText: '',
     isShowLoading: false,
-    loadingText: '请稍候~~',
-    userFormName: '',
-    userFormValue: '',
-    userFormType: '',
-    userFormTitle: ''
+    loadingText: '请稍候~~'
 }
 
 export default new Vuex.Store({

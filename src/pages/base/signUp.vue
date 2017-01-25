@@ -28,7 +28,7 @@
                     <input type="number" class="ui-input" placeholder="请输入您的家族标识" v-model="family_sn" maxlength="11">
                 </div>
             </div>
-            <div class="ui-btn max" @click="verifySms">下一步</div>
+            <div class="ui-btn max" v-bind:class="isNext" @click="verifySms">下一步</div>
         </div>
     </section>
 </template>
@@ -53,6 +53,9 @@
             ltHeader
         },
         computed: {
+            isNext() {
+                
+            },
             isGetCode() {
                 let isDisable = true
                 if (this.isRequestCode) {
@@ -74,8 +77,7 @@
             ...mapActions([
                 'postSendSms',
                 'postVerifySms',
-                'postRegister',
-                'showToast'
+                'postRegister'
             ]),
             getCode() {
                 if (!this.isRequestCode) return
@@ -100,7 +102,8 @@
                 let self = this
                 self.postVerifySms({
                     params: {
-                        'code': self.code
+                        code: self.code,
+                        mobile: self.mobile
                     },
                     success() {
                         self.postRegister({

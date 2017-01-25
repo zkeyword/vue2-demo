@@ -2,7 +2,7 @@ import axios from 'axios'
 export default {
     reset(data) {
         return axios
-            .get('/api/auth/reset_password', data)
+            .post('/api/auth/reset_password', data)
     },
     login(data) {
         return axios
@@ -26,11 +26,11 @@ export default {
     },
     parent(data) {
         return axios
-            .get('/api/common/parent_items', data)
+            .get('/api/common/parent_items', { params: data })
     },
     spouseList(data) {
         return axios
-            .get('/api/common/spouse_items', data)
+            .get('/api/common/spouse_items', { params: data })
     },
     perfectInfo(data) {
         return axios

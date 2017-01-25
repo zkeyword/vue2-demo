@@ -40,18 +40,5 @@ export default {
     },
     [HIDELOADING](state) {
         state.isShowLoading = false
-    },
-    /* 用户表单 */
-    [USERFORMTITLE](state, { title }) {
-        state.userFormTitle = title
-    },
-    [USERFORMTYPE](state, obj) {
-        state.userFormType = obj
-    },
-    [USERFORMNAME](state, { name }) {
-        state.userFormName = name
-    },
-    [USERFORMVALUE](state, { value }) {
-        state.userFormValue = value
     }
 }
