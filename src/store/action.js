@@ -143,17 +143,16 @@ export default {
                 state.isShowLoading = false
             })
     },
-    postPerfectInfo({ commit, state }, {params, success, error}) {
+    postPerfectInfo({ commit, state }, {params, self}) {
         state.isShowLoading = true
         api
             .perfectInfo(params)
             .then(res => {
-                let {msg, code, data} = res.data
+                let {msg, code} = res.data
                 state.isShowLoading = false
                 if (Number(code) === 0) {
-                    success && success(data)
+                    self.$router.push({ name: 'home' })
                 } else {
-                    error && error()
                     commit(SHOWTOAST, { text: msg })
                 }
             })

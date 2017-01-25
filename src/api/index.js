@@ -34,6 +34,6 @@ export default {
     },
     perfectInfo(data) {
         return axios
-            .get('/api/auth/perfect_info', data)
+            .post('/api/auth/perfect_info', data)
     }
 }

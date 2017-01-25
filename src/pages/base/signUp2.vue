@@ -69,7 +69,7 @@
         computed: {
             isNext() {
                 let isDisable = false
-                if (!this.mobile || !/1[34578]{1}\d{9}$/.test(this.mobile) || !this.code || !this.password || !this.realname || !this.family_sn) {
+                if (!this.generations || !this.hierarchies_name || !this.rank || !this.inherit || !this.father_name || !this.mother_name) {
                     isDisable = true
                 }
                 return {
