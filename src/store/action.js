@@ -37,15 +37,15 @@ export default {
                 state.isShowLoading = false
             })
     },
-    postReset({ commit, state }, {params}) {
+    postReset({ commit, state }, {params, self}) {
         state.isShowLoading = true
         api
-            .login(params)
+            .reset(params)
             .then(res => {
                 let {msg, code} = res.data
                 state.isShowLoading = false
                 if (Number(code) === 0) {
-                    commit(SHOWTOAST, { text: '注册成功' })
+                    self.$router.push({ name: 'signIn' })
                 } else {
                     commit(SHOWTOAST, { text: msg })
                 }
@@ -98,7 +98,7 @@ export default {
                 state.isShowLoading = false
                 if (Number(code) === 0) {
                     commit(SHOWTOAST, { text: msg })
-                    self.$router.push({ name: 'signUp2', query: {family: self.family_sn, token: data.access_token} })
+                    self.$router.push({ name: 'signUp2', query: { family: self.family_sn, token: data.access_token } })
                 } else {
                     commit(SHOWTOAST, { text: msg })
                 }

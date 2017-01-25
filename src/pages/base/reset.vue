@@ -5,26 +5,28 @@
             <div class="form ui-form">
                 <div class="ui-cell">
                     <span class="ui-label">新密码</span>
-                    <input type="number" class="ui-input" placeholder="请输入6-16新密码，区分大小写" v-model="mobile" maxlength="11">
+                    <input type="number" class="ui-input" placeholder="请输入6-16新密码，区分大小写" v-model="password" maxlength="11">
                 </div>
                 <div class="ui-cell">
                     <span class="ui-label">确认密码</span>
-                    <input type="number" class="ui-input" placeholder="请再次输入密码" v-model="code" maxlength="6">
+                    <input type="number" class="ui-input" placeholder="请再次输入密码" v-model="re_password" maxlength="6">
                 </div>
             </div>
-            <div class="ui-btn max" @click="login">提交</div>
+            <div class="ui-btn max" v-bind:class="isNext" @click="reset">提交</div>
         </div>
     </section>
 </template>
 <script>
     import { ltHeader } from 'components'
-    import { mapGetters, mapActions } from 'vuex'
+    import { mapActions } from 'vuex'
     export default {
         data() {
             return {
                 title: '重置密码',
                 mobile: '',
                 code: '',
+                password: '',
+                re_password: '',
                 isRequestCode: true,
                 codeText: '发送验证码',
                 codeTime: 60
@@ -34,9 +36,17 @@
             ltHeader
         },
         computed: {
-            ...mapGetters([
-                'isLogin'
-            ]),
+            isNext() {
+                let isDisable = false
+                if (this.password && this.password === this.re_password) {
+                    isDisable = false
+                } else {
+                    isDisable = true
+                }
+                return {
+                    disable: isDisable
+                }
+            },
             isGetCode() {
                 let isDisable = true
                 if (this.isRequestCode) {
@@ -56,42 +66,18 @@
         },
         methods: {
             ...mapActions([
-                'postLogin',
-                'showToast',
-                'showLoading'
+                'postReset'
             ]),
-            login() {
-                if (!this.mobile) return
-                if (!this.password) return
-                this.postLogin({
+            reset() {
+                let self = this
+                self.postReset({
+                    self,
                     params: {
-                        'mobile': this.mobile,
-                        'password': this.password
-                    },
-                    error() {
-                        console.log(12)
+                        mobile: this.mobile,
+                        code: this.code,
+                        password: this.password,
+                        re_password: this.re_password
                     }
-                })
-            },
-            getCode() {
-                // this.showLoading({
-                //    isShow: true,
-                //    text: '请稍等~~'
-                // })
-                if (!this.isRequestCode) return
-                let timer = setInterval(() => {
-                    --this.codeTime
-                    if (this.codeTime === 0) {
-                        this.codeTime = 0
-                        this.isRequestCode = true
-                        clearInterval(timer)
-                    }
-                }, 1000)
-                this.isRequestCode = false
-                this.codeText = '重新获取'
-                this.showToast({
-                    isShow: true,
-                    text: 'xxx'
                 })
             }
         }

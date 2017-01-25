@@ -2,7 +2,7 @@
     <section class="page-userIndex">
         <lt-footer :type="1"></lt-footer>
         <div class="lt-main">
-            index
+            <img src="/static/index.jpg" alt="" width="100%">
         </div>
     </section>
 </template>

@@ -16,7 +16,7 @@
                     </span>
                 </div>
             </div>
-            <div class="ui-btn max" v-bind:class="isNext" @click="next">下一步</div>
+            <div class="ui-btn max" v-bind:class="isNext" @click="verifySms">下一步</div>
         </div>
     </section>
 </template>
@@ -66,7 +66,8 @@
         },
         methods: {
             ...mapActions([
-                'postSendSms'
+                'postSendSms',
+                'postVerifySms'
             ]),
             getCode() {
                 if (!this.isRequestCode) return
@@ -87,8 +88,17 @@
                     }
                 })
             },
-            next() {
-
+            verifySms() {
+                let self = this
+                self.postVerifySms({
+                    params: {
+                        code: self.code,
+                        mobile: self.mobile
+                    },
+                    success() {
+                        self.$router.push({ name: 'reset', query: { code: self.code, mobile: self.mobile } })
+                    }
+                })
             }
         }
     }
