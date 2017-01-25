@@ -54,7 +54,9 @@
         },
         computed: {
             isNext() {
-                
+                if (!this.mobile || !this.code || !this.password || !this.realname || !this.family_sn) {
+
+                }
             },
             isGetCode() {
                 let isDisable = true
@@ -76,8 +78,8 @@
         methods: {
             ...mapActions([
                 'postSendSms',
-                'postVerifySms',
-                'postRegister'
+            'postVerifySms',
+            'postRegister'
             ]),
             getCode() {
                 if (!this.isRequestCode) return
