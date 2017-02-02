@@ -20,10 +20,6 @@ export default {
         return axios
             .post('/api/common/verify_sms', data)
     },
-    userInfo(data) {
-        return axios
-            .post('/api/common/member_info', data)
-    },
     parent(data) {
         return axios
             .get('/api/common/parent_items', { params: data })
@@ -35,5 +31,13 @@ export default {
     perfectInfo(data) {
         return axios
             .post('/api/auth/perfect_info', data)
+    },
+    memberInfo(data) {
+        return axios
+            .get('/api/auth/member_info', data)
+    },
+    tree(data) {
+        return axios
+            .get('/api/tree', data)
     }
 }

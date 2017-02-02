@@ -5,15 +5,15 @@
             <div class="form ui-form">
                 <div class="ui-cell">
                     <span class="ui-label">手机号码</span>
-                    <input type="number" class="ui-input" placeholder="手机号将作为您的登录账号" v-model="mobile" maxlength="11">
+                    <input type="text" class="ui-input" placeholder="手机号将作为您的登录账号" v-model="mobile" maxlength="11">
                 </div>
                 <div class="ui-cell">
                     <span class="ui-label">会员姓名</span>
-                    <input type="number" class="ui-input" placeholder="请输入您的真实姓名" v-model="realname" maxlength="11">
+                    <input type="text" class="ui-input" placeholder="请输入您的真实姓名" v-model="realname" maxlength="11">
                 </div>
                 <div class="ui-cell">
                     <span class="ui-label">登录密码</span>
-                    <input type="number" class="ui-input" placeholder="请设置您的登录密码" v-model="password" maxlength="16">
+                    <input type="text" class="ui-input" placeholder="请设置您的登录密码" v-model="password" maxlength="16">
                 </div>
                 <div class="ui-cell">
                     <span class="ui-label">验证码</span>
@@ -25,7 +25,7 @@
                 </div>
                 <div class="ui-cell">
                     <span class="ui-label">家族标识</span>
-                    <input type="number" class="ui-input" placeholder="请输入您的家族标识" v-model="family_sn">
+                    <input type="text" class="ui-input" placeholder="请输入您的家族标识" v-model="family_sn">
                 </div>
             </div>
             <div class="ui-btn max" v-bind:class="isNext" @click="verifySms">下一步</div>

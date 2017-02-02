@@ -1,87 +1,41 @@
 <template>
-    <section class="page-userIndex">
+    <section class="page-search">
+        <header>
+            <input type="text" placeholder="成员编号和姓名">
+            <span>搜索</span>
+        </header>
         <lt-footer :type="2"></lt-footer>
         <div class="lt-main">
-            search
+            <div>关系查询</div>
+            <chats :width="200" :height="300" :data="treeData"></chats>
         </div>
     </section>
 </template>
 <script>
-    import { ltFooter } from 'components'
-    import { mapGetters, mapActions } from 'vuex'
+    import { ltFooter, chats } from 'components'
+    import { mapActions } from 'vuex'
     export default {
         data() {
             return {
-                title: '找回密码',
-                mobile: '',
-                code: '',
-                isRequestCode: true,
-                codeText: '发送验证码',
-                codeTime: 60
+                treeData: []
             }
         },
         components: {
-            ltFooter
-        },
-        computed: {
-            ...mapGetters([
-                'isLogin'
-            ]),
-            isGetCode() {
-                let isDisable = true
-                if (this.isRequestCode) {
-                    isDisable = this.mobile === ''
-                } else {
-                    isDisable = true
-                }
-                return {
-                    disable: isDisable
-                }
-            }
+            ltFooter,
+            chats
         },
         mounted() {
-            this.$nextTick(() => {
-                // console.log(1)
+            this.getTree({
+                self: this,
+                success(treeData) {
+                    this.treeData = treeData
+                }
             })
         },
         methods: {
             ...mapActions([
-                'postLogin',
-                'showToast',
-                'showLoading'
-            ]),
-            logout() {
-                this.postLogin({
-                    params: {
-                        'mobile': this.mobile,
-                        'password': this.password
-                    },
-                    error() {
-                        console.log(12)
-                    }
-                })
-            },
-            getCode() {
-                // this.showLoading({
-                //    isShow: true,
-                //    text: '请稍等~~'
-                // })
-                if (!this.isRequestCode) return
-                let timer = setInterval(() => {
-                    --this.codeTime
-                    if (this.codeTime === 0) {
-                        this.codeTime = 0
-                        this.isRequestCode = true
-                        clearInterval(timer)
-                    }
-                }, 1000)
-                this.isRequestCode = false
-                this.codeText = '重新获取'
-                this.showToast({
-                    isShow: true,
-                    text: 'xxx'
-                })
-            }
+                'getTree'
+            ])
         }
     }
 </script>

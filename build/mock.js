@@ -7,7 +7,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.post('/api/auth/login', function (req, res) {
-    if (req.body.mobile == '1' && req.body.password == '1') {
+    if (req.body.mobile == '13600000000' && req.body.password == '1') {
         var data = {
             "code": 0,
             "msg": "登录成功",         //服务端返回的说明
@@ -67,6 +67,13 @@ app.post('/api/common/verify_sms', function (req, res) {
         "msg": "操作成功",
         "data": []
     }
+
+    res.send(JSON.stringify(data, null, 4));
+});
+
+
+app.post('/api/auth/perfect_info', function (req, res) {
+    var data = { "code": 0, "msg": "\u6ce8\u518c\u6210\u529f", "data": { "access_token": "6273ac557d72d7d54bf2fbf214ce6af0", "secret_key": "YAaySF", "expired_at": 1485360195 } }
 
     res.send(JSON.stringify(data, null, 4));
 });
@@ -172,6 +179,42 @@ app.get('/api/auth/member_info', function (req, res) {
 
     res.send(JSON.stringify(data, null, 4));
 });
+
+
+app.get('/api/tree', function (req, res) {
+    var data = {
+        "code": 0,
+        "msg": "操作成功！",
+        "data": [
+            {
+                "name": "Top Level",
+                "parent": "null",
+                "children": [
+                    {
+                        "name": "Level 2: A",
+                        "parent": "Top Level",
+                        "children": [
+                            {
+                                "name": "Son of A",
+                                "parent": "Level 2: A"
+                            },
+                            {
+                                "name": "Daughter of A",
+                                "parent": "Level 2: A"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Level 2: B",
+                        "parent": "Top Level"
+                    }
+                ]
+            }
+        ]
+    }
+
+    res.send(JSON.stringify(data, null, 4))
+})
 
 
 

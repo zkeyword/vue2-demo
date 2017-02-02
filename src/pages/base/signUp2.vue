@@ -125,6 +125,7 @@
             },
             register() {
                 this.postPerfectInfo({
+                    self: this,
                     params: {
                         token: this.token,
                         family_sn: this.family,

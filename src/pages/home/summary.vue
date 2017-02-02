@@ -2,19 +2,19 @@
     <section class="page-home">
         <header>
             <ul>
-                <li @click="jump()">家族介绍</li>
-                <li class="on">家族族谱</li>
+                <li class="on">家族介绍</li>
+                <li @click="jump()">家族族谱</li>
             </ul>
         </header>
-        <lt-footer :type="1"></lt-footer>
         <div class="lt-main">
-            <img src="/static/index.jpg" alt="" width="100%">
+            家族图集
+            
         </div>
     </section>
 </template>
 <script>
     import { ltFooter } from 'components'
-    import { mapGetters, mapActions } from 'vuex'
+    import { mapActions } from 'vuex'
     export default {
         data() {
             return {
@@ -29,22 +29,6 @@
         components: {
             ltFooter
         },
-        computed: {
-            ...mapGetters([
-                'isLogin'
-            ]),
-            isGetCode() {
-                let isDisable = true
-                if (this.isRequestCode) {
-                    isDisable = this.mobile === ''
-                } else {
-                    isDisable = true
-                }
-                return {
-                    disable: isDisable
-                }
-            }
-        },
         mounted() {
             this.$nextTick(() => {
                 // console.log(1)
@@ -55,7 +39,7 @@
                 'postLogin'
             ]),
             jump() {
-                this.$router.push({ name: 'homeSummary' })
+                this.$router.push({ name: 'home' })
             }
         }
     }
