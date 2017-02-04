@@ -108,9 +108,19 @@ let router = new VueRouter({
             component: resolve => require(['./pages/user/households'], resolve)
         },
         {
+            path: '/user/addHouseholds',
+            name: 'userAddHouseholds',
+            component: resolve => require(['./pages/user/addHouseholds'], resolve)
+        },
+        {
             path: '/user/more',
             name: 'userMore',
             component: resolve => require(['./pages/user/more'], resolve)
+        },
+        {
+            path: '/user/post',
+            name: 'userPost',
+            component: resolve => require(['./pages/user/post'], resolve)
         },
         {
             path: '*',

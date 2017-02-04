@@ -30,3 +30,6 @@
         }
     }
 </script>
+<style lang="stylus">
+@import './assets/styles/index.styl';
+</style>

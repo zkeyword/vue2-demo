@@ -1,7 +1,7 @@
 <template>
     <section class="page-userSpouseList">
-        <lt-header :title="title" :showBtn="isShowHeaderBtn" @on-haddle="onHaddle"></lt-header>
-        <footer>添加成员</footer>
+        <lt-header :title="title"></lt-header>
+        <footer @click="jump({title: '添加成员'})">添加成员</footer>
         <div class="lt-main">
             <div class="ui-block">
                 <div class="ui-cell">
@@ -35,61 +35,26 @@
 </template>
 <script>
     import { ltHeader } from 'components'
-    import { mapGetters, mapActions } from 'vuex'
-    // mapState
+    import { mapActions } from 'vuex'
     export default {
         data() {
             return {
-                title: '户主户口',
-                name: '',
-                type: '',
-                value: '',
-                isShowInputClose: false,
-                isShowHeaderBtn: true
+                title: '户主户口'
             }
         },
         components: {
             ltHeader
         },
-        computed: {
-            ...mapGetters([
-                'userFormName',
-                'userFormValue',
-                'userFormType',
-                'userFormTitle'
-            ])
-        },
-        watch: {
-            value() {
-                this.showInputClose()
-            }
-        },
         mounted() {
-            this.$nextTick(() => {
-                let {type, name, value} = this.$route.query
-                this.name = name
-                this.type = type
-                this.value = value
-            })
         },
         methods: {
             ...mapActions([
-                'postLogin',
-                'showToast',
-                'showLoading'
+                'postLogin'
             ]),
-            showInputClose() {
-                if (this.value) {
-                    this.isShowInputClose = true
-                }
-            },
-            hideInputClose() {
-                this.isShowInputClose = false
-                this.value = ''
-            },
-            onHaddle() {
-                // console.log(1212)
+            jump(obj) {
+                this.$router.push({ name: 'userAddHouseholds', query: obj })
             }
         }
     }
+
 </script>

@@ -3,7 +3,6 @@ import App from './App'
 import RouterMap from './routers'
 import store from './store'
 import './assets/icomoon/style.styl'
-import './assets/styles/index.styl'
 import { getCookie } from 'utils/cookie'
 
 RouterMap.beforeEach(({meta, path}, from, next) => {

@@ -61,7 +61,7 @@
         },
         mounted() {
             let {mobile, code} = this.$route.query
-            this.mobile = family
+            this.mobile = mobile
             this.code = code
         },
         methods: {

@@ -5,29 +5,32 @@
             <div class="ui-block">
                 <div class="ui-cell">
                     <div class="text">客服电话</div>
+                    <span class="tag right">
+                        <span class="value">sadfadfasdf</span>
+                    </span>
                 </div>
-                <div class="ui-cell">
+                <div class="ui-cell" @click="jump({title: '关于我们'})">
                     <div class="text">关于我们</div>
                     <span class="tag right">
-                        <span class="value">sadfadfasdf</span>
+                        <i class="icon icon-right"></i>
                     </span>
                 </div>
-                <div class="ui-cell">
+                <div class="ui-cell" @click="jump({title: '隐私建议'})">
                     <div class="text">隐私建议</div>
                     <span class="tag right">
-                        <span class="value">sadfadfasdf</span>
+                        <i class="icon icon-right"></i>
                     </span>
                 </div>
-                <div class="ui-cell">
+                <div class="ui-cell" @click="jump({title: '意见反馈'})">
                     <div class="text">意见反馈</div>
                     <span class="tag right">
-                        <span class="value">sadfadfasdf</span>
+                        <i class="icon icon-right"></i>
                     </span>
                 </div>
-                <div class="ui-cell">
+                <div class="ui-cell" @click="jump({title: '公告信息'})">
                     <div class="text">公告信息</div>
                     <span class="tag right">
-                        <span class="value">sadfadfasdf</span>
+                        <i class="icon icon-right"></i>
                     </span>
                 </div>
             </div>
@@ -36,60 +39,27 @@
 </template>
 <script>
     import { ltHeader } from 'components'
-    import { mapGetters, mapActions } from 'vuex'
+    import { mapActions } from 'vuex'
     // mapState
     export default {
         data() {
             return {
-                title: '更多',
-                name: '',
-                type: '',
-                value: '',
-                isShowInputClose: false,
-                isShowHeaderBtn: true
+                title: '更多'
             }
         },
         components: {
             ltHeader
         },
-        computed: {
-            ...mapGetters([
-                'userFormName',
-                'userFormValue',
-                'userFormType',
-                'userFormTitle'
-            ])
-        },
-        watch: {
-            value() {
-                this.showInputClose()
-            }
-        },
         mounted() {
             this.$nextTick(() => {
-                let {type, name, value} = this.$route.query
-                this.name = name
-                this.type = type
-                this.value = value
             })
         },
         methods: {
             ...mapActions([
-                'postLogin',
-                'showToast',
-                'showLoading'
+                'postLogin'
             ]),
-            showInputClose() {
-                if (this.value) {
-                    this.isShowInputClose = true
-                }
-            },
-            hideInputClose() {
-                this.isShowInputClose = false
-                this.value = ''
-            },
-            onHaddle() {
-                // console.log(1212)
+            jump(obj) {
+                this.$router.push({ name: 'userPost', query: obj })
             }
         }
     }
