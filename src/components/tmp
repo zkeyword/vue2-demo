@@ -1,0 +1,119 @@
+<template>
+    <svg class="line-chart"></svg>
+</template>
+
+<script>
+    import * as d3 from 'd3'
+    export default {
+        name: 'line-chart',
+        props: {
+            width: {
+                type: Number,
+                default: 0
+            },
+            height: {
+                type: Number,
+                default: 0
+            },
+            data: {
+                type: Array,
+                default: []
+            }
+        },
+        mounted() {
+            this.renderChart()
+        },
+        methods: {
+            renderChart() {
+                // NOTE: This code is based on https://gist.github.com/d3noob/402dd382a51a4f6eea487f9a35566de0
+                let margin = { top: 20, right: 120, bottom: 20, left: 120 }
+                let width = 960 - margin.right - margin.left
+                let height = 500 - margin.top - margin.bottom
+
+                let i = 0
+
+                let tree = d3.tree()
+                    .size([height, width])
+                /*
+                let diagonal = d3.svg.diagonal()
+                    .projection(d => {
+                        return [d.y, d.x]
+                    })
+                */
+                let svg = d3.select(this.$el).append('svg')
+                    .attr('width', width + margin.right + margin.left)
+                    .attr('height', height + margin.top + margin.bottom)
+                    .append('g')
+                    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+
+                let root = this.data[0]
+                console.log(tree)
+                update(root)
+
+                function update(root) {
+                    // Compute the new tree layout.
+                    let nodes = tree.nodes(root).reverse()
+                    let links = tree.links(nodes)
+
+                    // Normalize for fixed-depth.
+                    nodes.forEach(d => {
+                        d.y = d.depth * 180
+                    })
+
+                    // Declare the nodesâ€¦
+                    let node = svg.selectAll('g.node')
+                        .data(nodes, d => {
+                            return d.id || (d.id = ++i)
+                        })
+
+                    // Enter the nodes.
+                    let nodeEnter = node.enter().append('g')
+                        .attr('class', 'node')
+                        .attr('transform', d => {
+                            return 'translate(' + d.y + ',' + d.x + ')'
+                        })
+
+                    nodeEnter.append('circle')
+                        .attr('r', 10)
+                        .style('fill', '#fff')
+
+                    nodeEnter.append('text')
+                        .attr('x', d => {
+                            return d.children || d._children ? -13 : 13
+                        })
+                        .attr('dy', '.35em')
+                        .attr('text-anchor', d => {
+                            return d.children || d._children ? 'end' : 'start'
+                        })
+                        .text(d => {
+                            return d.name
+                        })
+                        .style('fill-opacity', 1)
+
+                    // Declare the linksâ€¦
+                    let link = svg.selectAll('path.link')
+                        .data(links, d => {
+                            return d.target.id
+                        })
+
+                    // Enter the links.
+                    link.enter().insert('path', 'g')
+                        .attr('class', 'link')
+                        // .attr('d', diagonal)
+                }
+            }
+        },
+        watch: {
+            width: 'renderChart',
+            height: 'renderChart'
+        }
+    }
+</script>
+
+<style>
+  .line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 2px;
+  }
+</style>

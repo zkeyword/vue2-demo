@@ -53,12 +53,12 @@
                     <div class="text">主要经历</div>
                     <span class="tag right"><i class="icon icon-right"></i></span>
                 </div>
-                <div class="ui-cell">
+                <div class="ui-cell" @click="jump('userHouseholds')">
                     <span class="tag"><i class="icon icon-list"></i></span>
                     <div class="text">户主户口</div>
                     <span class="tag right"><i class="icon icon-right"></i></span>
                 </div>
-                <div class="ui-cell">
+                <div class="ui-cell" @click="jump('userMore')">
                     <span class="tag"><i class="icon icon-more"></i></span>
                     <div class="text">更多</div>
                     <span class="tag right"><i class="icon icon-right"></i></span>

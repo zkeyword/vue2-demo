@@ -7,28 +7,28 @@
                     <div class="text">姓名</div>
                     <span class="tag right">
                         <i class="icon icon-right"></i>
-                        <span class="value"></span>
+                        <span class="value">{{data.realname}}</span>
                     </span>
                 </div>
                 <div class="ui-cell" @click="submitInfo({title: '账号', type: '1', name: 'name', value: 'xxx'})">
                     <div class="text">账号</div>
                     <span class="tag right">
                         <i class="icon icon-right"></i>
-                        <span class="value">xxx</span>
+                        <span class="value">{{data.username}}</span>
                     </span>
                 </div>
                 <div class="ui-cell" @click="modifyPassword">
                     <div class="text">密码</div>
                     <span class="tag right">
                         <i class="icon icon-right"></i>
-                        <span class="value">xxx</span>
+                        <span class="value"></span>
                     </span>
                 </div>
                 <div class="ui-cell" @click="showMenu(1)">
                     <div class="text">性别</div>
                     <span class="tag right">
                         <i class="icon icon-right"></i>
-                        <span class="value">xxx</span>
+                        <span class="value">{{data.sex}}</span>
                     </span>
                 </div>
                 <div class="ui-cell" @click="submitInfo({title: '籍贯', type: '1', name: 'name', value: 'xxx'})">
@@ -42,42 +42,42 @@
                     <div class="text">编号</div>
                     <span class="tag right">
                         <i class="icon icon-right"></i>
-                        <span class="value">xxx</span>
+                        <span class="value">{{data.sn}}</span>
                     </span>
                 </div>
                 <div class="ui-cell" @click="submitInfo({title: '旧编号', type: '1', name: 'name', value: 'xxx'})">
                     <div class="text">旧编号</div>
                     <span class="tag right">
                         <i class="icon icon-right"></i>
-                        <span class="value">xxx</span>
+                        <span class="value">{{data.old_sn}}</span>
                     </span>
                 </div>
                 <div class="ui-cell" @click="submitInfo({title: '手机号码', type: '1', name: 'name', value: 'xxx'})">
                     <div class="text">手机号码</div>
                     <span class="tag right">
                         <i class="icon icon-right"></i>
-                        <span class="value">xxx</span>
+                        <span class="value">{{data.mobile}}</span>
                     </span>
                 </div>
                 <div class="ui-cell" @click="submitInfo({title: '身份证号', type: '1', name: 'name', value: 'xxx'})">
                     <div class="text">身份证号</div>
                     <span class="tag right">
                         <i class="icon icon-right"></i>
-                        <span class="value">xxx</span>
+                        <span class="value">{{data.idno}}</span>
                     </span>
                 </div>
                 <div class="ui-cell">
                     <div class="text">出生日期</div>
                     <span class="tag right">
                         <i class="icon icon-right"></i>
-                        <span class="value">xxx</span>
+                        <span class="value">{{data.birthday}}</span>
                     </span>
                 </div>
                 <div class="ui-cell" @click="submitInfo({title: '所在区域', type: '2', name: 'name', value: 'xxx'})">
                     <div class="text">所在区域</div>
                     <span class="tag right">
                         <i class="icon icon-right"></i>
-                        <span class="value">xxx</span>
+                        <span class="value">{{data}}</span>
                     </span>
                 </div>
             </div>
@@ -85,20 +85,20 @@
                 <div class="ui-cell" @click="submitInfo({title: '家族标识', type: '1', name: 'name', value: 'xxx'})">
                     <div class="text">家族标识</div>
                     <span class="tag right">
-                        <span class="value">xxx</span>
+                        <span class="value">{{data.family_sn}}</span>
                     </span>
                 </div>
                 <div class="ui-cell" @click="submitInfo({title: '家族名称', type: '1', name: 'name', value: 'xxx'})">
                     <div class="text">家族名称</div>
                     <span class="tag right">
-                        <span class="value">xxx</span>
+                        <span class="value">{{data.family_name}}</span>
                     </span>
                 </div>
                 <div class="ui-cell" @click="submitInfo({title: '始祖', type: '1', name: 'name', value: 'xxx'})">
                     <div class="text">始祖</div>
                     <span class="tag right">
                         <i class="icon icon-right"></i>
-                        <span class="value">xxx</span>
+                        <span class="value">{{data.family_name}}</span>
                     </span>
                 </div>
                 <div class="ui-cell" @click="submitInfo({title: '第几世', type: '1', name: 'name', value: 'xxx'})">
@@ -183,7 +183,8 @@
             return {
                 title: '个人资料',
                 menus: {},
-                isShowMenus: false
+                isShowMenus: false,
+                data: {}
             }
         },
         components: {
@@ -198,14 +199,21 @@
         },
         mounted() {
             this.$nextTick(() => {
-                // console.log(1)
+                this.getMemberInfo({
+                    self: this,
+                    params: {
+                        name: '',
+                        token: ''
+                    },
+                    success(data) {
+                        this.data = data
+                    }
+                })
             })
         },
         methods: {
             ...mapActions([
-                'setUserForm',
-                'showToast',
-                'showLoading'
+                'getMemberInfo'
             ]),
             submitInfo(obj) {
                 this.$router.push({ name: 'userForm', query: obj })

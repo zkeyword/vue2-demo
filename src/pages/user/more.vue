@@ -1,35 +1,36 @@
 <template>
     <section class="page-userSpouseList">
-        <lt-header :title="title" :showBtn="isShowHeaderBtn" @on-haddle="onHaddle"></lt-header>
-        <footer>添加成员</footer>
+        <lt-header :title="title"></lt-header>
         <div class="lt-main">
             <div class="ui-block">
                 <div class="ui-cell">
-                    <div class="text">姓名</div>
+                    <div class="text">客服电话</div>
+                </div>
+                <div class="ui-cell">
+                    <div class="text">关于我们</div>
                     <span class="tag right">
                         <span class="value">sadfadfasdf</span>
                     </span>
                 </div>
                 <div class="ui-cell">
-                    <div class="text">性别</div>
+                    <div class="text">隐私建议</div>
                     <span class="tag right">
                         <span class="value">sadfadfasdf</span>
                     </span>
                 </div>
                 <div class="ui-cell">
-                    <div class="text">出生年月</div>
+                    <div class="text">意见反馈</div>
                     <span class="tag right">
                         <span class="value">sadfadfasdf</span>
                     </span>
                 </div>
                 <div class="ui-cell">
-                    <div class="iconBtn">
-                        <span><i class="icon icon-bianji"></i>编辑</span>
-                        <span><i class="icon icon-del"></i>删除</span>
-                    </div>
+                    <div class="text">公告信息</div>
+                    <span class="tag right">
+                        <span class="value">sadfadfasdf</span>
+                    </span>
                 </div>
             </div>
-            <div class="noData">暂无相关信息，请添加！</div>
         </div>
     </section>
 </template>
@@ -40,7 +41,7 @@
     export default {
         data() {
             return {
-                title: '户主户口',
+                title: '更多',
                 name: '',
                 type: '',
                 value: '',

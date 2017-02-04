@@ -11,6 +11,11 @@ let router = new VueRouter({
             component: resolve => require(['./pages/home'], resolve)
         },
         {
+            path: '/home/summary',
+            name: 'homeSummary',
+            component: resolve => require(['./pages/home/summary'], resolve)
+        },
+        {
             path: '/search',
             name: 'search',
             component: resolve => require(['./pages/search'], resolve)
@@ -101,6 +106,11 @@ let router = new VueRouter({
             path: '/user/households',
             name: 'userHouseholds',
             component: resolve => require(['./pages/user/households'], resolve)
+        },
+        {
+            path: '/user/more',
+            name: 'userMore',
+            component: resolve => require(['./pages/user/more'], resolve)
         },
         {
             path: '*',

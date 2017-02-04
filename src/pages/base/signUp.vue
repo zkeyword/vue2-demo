@@ -5,7 +5,7 @@
             <div class="form ui-form">
                 <div class="ui-cell">
                     <span class="ui-label">手机号码</span>
-                    <input type="number" class="ui-input" placeholder="手机号将作为您的登录账号" v-model="mobile" maxlength="11">
+                    <input type="text" class="ui-input" placeholder="手机号将作为您的登录账号" v-model="mobile" maxlength="11">
                 </div>
                 <div class="ui-cell">
                     <span class="ui-label">会员姓名</span>

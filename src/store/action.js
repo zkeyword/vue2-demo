@@ -151,7 +151,41 @@ export default {
                 let {msg, code} = res.data
                 state.isShowLoading = false
                 if (Number(code) === 0) {
-                    self.$router.push({ name: 'home' })
+                    commit(BASEINFO, { ...res.data, self })
+                } else {
+                    commit(SHOWTOAST, { text: msg })
+                }
+            })
+            .catch(res => {
+                state.isShowLoading = false
+            })
+    },
+    getMemberInfo({ commit, state }, {params, success, self}) {
+        state.isShowLoading = true
+        api
+            .memberInfo(params)
+            .then(res => {
+                let {msg, code, data} = res.data
+                state.isShowLoading = false
+                if (Number(code) === 0) {
+                    success && success.apply(self, [data])
+                } else {
+                    commit(SHOWTOAST, { text: msg })
+                }
+            })
+            .catch(res => {
+                state.isShowLoading = false
+            })
+    },
+    getTree({ commit, state }, {params, success, self}) {
+        state.isShowLoading = true
+        api
+            .tree(params)
+            .then(res => {
+                let {msg, code, data} = res.data
+                state.isShowLoading = false
+                if (Number(code) === 0) {
+                    success && success.apply(self, [data])
                 } else {
                     commit(SHOWTOAST, { text: msg })
                 }
