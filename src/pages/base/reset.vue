@@ -60,9 +60,9 @@
             }
         },
         mounted() {
-            this.$nextTick(() => {
-                // console.log(1)
-            })
+            let {mobile, code} = this.$route.query
+            this.mobile = family
+            this.code = code
         },
         methods: {
             ...mapActions([
@@ -82,4 +82,5 @@
             }
         }
     }
+
 </script>
