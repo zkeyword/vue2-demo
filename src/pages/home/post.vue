@@ -2,8 +2,18 @@
     <section class="page-homePost">
         <lt-header :title="title"></lt-header>
         <div class="lt-main">
-            <div class="ui-block">
-               {{detail}}
+            <ul class="imgList fn-clear" v-if="type === 1">
+                <li><img src="/static/index.jpg" alt="" width="100%"></li>
+                <li><img src="/static/index.jpg" alt="" width="100%"></li>
+                <li><img src="/static/index.jpg" alt="" width="100%"></li>
+                <li><img src="/static/index.jpg" alt="" width="100%"></li>
+                <li><img src="/static/index.jpg" alt="" width="100%"></li>
+                <li><img src="/static/index.jpg" alt="" width="100%"></li>
+                <li><img src="/static/index.jpg" alt="" width="100%"></li>
+                <li><img src="/static/index.jpg" alt="" width="100%"></li>
+            </ul>
+            <div class="ui-block" v-else>
+                <div class="ui-text">{{detail}}</div>
             </div>
         </div>
     </section>
@@ -15,18 +25,17 @@
         data() {
             return {
                 title: '',
-                detail: ''
+                detail: '',
+                type: 0
             }
         },
         components: {
             ltHeader
         },
         mounted() {
-            this.$nextTick(() => {
-                let {title, name} = this.$route.query
-                this.title = title
-                this.name = name
-            })
+            let {title, type} = this.$route.query
+            this.title = title
+            this.type = type
         },
         methods: {
             ...mapActions([

@@ -1,5 +1,5 @@
 <template>
-    <section class="page-userSpouseList">
+    <section class="page-userPost">
         <lt-header :title="title"></lt-header>
         <div class="lt-main">
             <div class="ui-block">

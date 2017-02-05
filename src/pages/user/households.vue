@@ -1,5 +1,5 @@
 <template>
-    <section class="page-userSpouseList">
+    <section class="page-userHouseholds">
         <lt-header :title="title"></lt-header>
         <footer @click="jump({title: '添加成员'})">添加成员</footer>
         <div class="lt-main">
@@ -24,7 +24,7 @@
                 </div>
                 <div class="ui-cell">
                     <div class="iconBtn">
-                        <span><i class="icon icon-bianji"></i>编辑</span>
+                        <span @click="jump({title: '添加成员'})"><i class="icon icon-bianji"></i>编辑</span>
                         <span><i class="icon icon-del"></i>删除</span>
                     </div>
                 </div>
@@ -53,7 +53,8 @@
             ]),
             jump(obj) {
                 this.$router.push({ name: 'userAddHouseholds', query: obj })
-            }
+            },
+            del() { }
         }
     }
 

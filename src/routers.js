@@ -5,22 +5,7 @@ Vue.use(VueRouter)
 
 let router = new VueRouter({
     routes: [
-        {
-            path: '/home',
-            name: 'home',
-            component: resolve => require(['./pages/home'], resolve)
-        },
-        {
-            path: '/home/summary',
-            name: 'homeSummary',
-            component: resolve => require(['./pages/home/summary'], resolve)
-        },
-        {
-            path: '/search',
-            name: 'search',
-            component: resolve => require(['./pages/search'], resolve)
-        },
-
+        // 登录
         {
             path: '/base/signUp',
             name: 'signUp',
@@ -51,7 +36,39 @@ let router = new VueRouter({
             name: 'reset',
             component: resolve => require(['./pages/base/reset'], resolve)
         },
-
+        // 世系族谱
+        {
+            path: '/home',
+            name: 'home',
+            component: resolve => require(['./pages/home'], resolve)
+        },
+        {
+            path: '/home/info',
+            name: 'homeInfo',
+            component: resolve => require(['./pages/home/info'], resolve)
+        },
+        {
+            path: '/home/post',
+            name: 'homePost',
+            component: resolve => require(['./pages/home/post'], resolve)
+        },
+        {
+            path: '/home/donate',
+            name: 'homeDonate',
+            component: resolve => require(['./pages/home/donate'], resolve)
+        },
+        // {
+        //     path: '/home/summary',
+        //     name: 'homeSummary',
+        //     component: resolve => require(['./pages/home/summary'], resolve)
+        // },
+        // 族谱导航
+        {
+            path: '/search',
+            name: 'search',
+            component: resolve => require(['./pages/search'], resolve)
+        },
+        // 我的族亲
         {
             path: '/user',
             name: 'user',
@@ -78,9 +95,19 @@ let router = new VueRouter({
             component: resolve => require(['./pages/user/parent'], resolve)
         },
         {
+            path: '/user/addParent',
+            name: 'userAddParent',
+            component: resolve => require(['./pages/user/addParent'], resolve)
+        },
+        {
             path: '/user/spouseList',
             name: 'userSpouseList',
             component: resolve => require(['./pages/user/spouseList'], resolve)
+        },
+        {
+            path: '/user/addSpouse',
+            name: 'userAddSpouse',
+            component: resolve => require(['./pages/user/addSpouse'], resolve)
         },
         {
             path: '/user/children',
@@ -88,9 +115,29 @@ let router = new VueRouter({
             component: resolve => require(['./pages/user/children'], resolve)
         },
         {
+            path: '/user/addChildren',
+            name: 'userAddChildren',
+            component: resolve => require(['./pages/user/addChildren'], resolve)
+        },
+        {
             path: '/user/learning',
             name: 'userLearning',
             component: resolve => require(['./pages/user/learning'], resolve)
+        },
+        {
+            path: '/user/addLearning',
+            name: 'userAddLearning',
+            component: resolve => require(['./pages/user/addLearning'], resolve)
+        },
+        {
+            path: '/user/address',
+            name: 'userAddress',
+            component: resolve => require(['./pages/user/address'], resolve)
+        },
+        {
+            path: '/user/addAddress',
+            name: 'userAddAddress',
+            component: resolve => require(['./pages/user/addAddress'], resolve)
         },
         {
             path: '/user/work',
@@ -98,9 +145,19 @@ let router = new VueRouter({
             component: resolve => require(['./pages/user/work'], resolve)
         },
         {
+            path: '/user/addWork',
+            name: 'userAddWork',
+            component: resolve => require(['./pages/user/addWork'], resolve)
+        },
+        {
             path: '/user/main',
             name: 'userMain',
             component: resolve => require(['./pages/user/main'], resolve)
+        },
+        {
+            path: '/user/addMain',
+            name: 'userAddMain',
+            component: resolve => require(['./pages/user/addMain'], resolve)
         },
         {
             path: '/user/households',

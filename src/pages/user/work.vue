@@ -1,7 +1,7 @@
 <template>
     <section class="page-userSpouseList">
-        <lt-header :title="title" :showBtn="isShowHeaderBtn" @on-haddle="onHaddle"></lt-header>
-        <footer>学习经历</footer>
+        <lt-header :title="title"></lt-header>
+        <footer @click="jump({title: '工作经历'})">新增工作经历</footer>
         <div class="lt-main">
             <div class="ui-block">
                 <div class="ui-cell">
@@ -36,7 +36,7 @@
                 </div>
                 <div class="ui-cell">
                     <div class="iconBtn">
-                        <span><i class="icon icon-bianji"></i>编辑</span>
+                        <span @click="jump({title: '工作经历'})"><i class="icon icon-bianji"></i>编辑</span>
                         <span><i class="icon icon-del"></i>删除</span>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
 </template>
 <script>
     import { ltHeader } from 'components'
-    import { mapGetters, mapActions } from 'vuex'
+    import { mapActions } from 'vuex'
     // mapState
     export default {
         data() {
@@ -63,45 +63,17 @@
         components: {
             ltHeader
         },
-        computed: {
-            ...mapGetters([
-                'userFormName',
-                'userFormValue',
-                'userFormType',
-                'userFormTitle'
-            ])
-        },
-        watch: {
-            value() {
-                this.showInputClose()
-            }
-        },
-        mounted() {
-            this.$nextTick(() => {
-                let {type, name, value} = this.$route.query
-                this.name = name
-                this.type = type
-                this.value = value
-            })
-        },
         methods: {
             ...mapActions([
-                'postLogin',
-                'showToast',
-                'showLoading'
+                'postLogin'
             ]),
-            showInputClose() {
-                if (this.value) {
-                    this.isShowInputClose = true
-                }
-            },
-            hideInputClose() {
-                this.isShowInputClose = false
-                this.value = ''
-            },
             onHaddle() {
                 // console.log(1212)
-            }
+            },
+            jump(obj) {
+                this.$router.push({ name: 'userAddWork', query: obj })
+            },
+            del() { }
         }
     }
 </script>

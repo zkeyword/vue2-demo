@@ -1,6 +1,6 @@
 <template>
-    <section class="page-userSpouseList">
-        <lt-header :title="title" :showBtn="isShowHeaderBtn" @on-haddle="onHaddle"></lt-header>
+    <section class="page-userAddHouseholds">
+        <lt-header :title="title" :showBtn="true" @on-haddle="onHaddle"></lt-header>
         <div class="lt-main">
             <div class="ui-block">
                 <div class="ui-cell">
@@ -40,7 +40,6 @@
                 sex: '',
                 name: '',
                 isShowInputClose: false,
-                isShowHeaderBtn: true,
                 isShow: false,
                 menus: {
                     1: '男',
@@ -63,15 +62,6 @@
             ...mapActions([
                 'postLogin'
             ]),
-            showInputClose() {
-                if (this.value) {
-                    this.isShowInputClose = true
-                }
-            },
-            hideInputClose() {
-                this.isShowInputClose = false
-                this.value = ''
-            },
             onHaddle() {
                 // console.log(1212)
             },

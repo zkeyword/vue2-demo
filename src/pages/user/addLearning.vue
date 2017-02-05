@@ -4,25 +4,37 @@
         <div class="lt-main">
             <div class="ui-block">
                 <div class="ui-cell">
-                    <div class="text">姓名</div>
+                    <datetime v-model="birthday" :min-year=1900 @on-change="change" title="" confirm-text="完成" cancel-text="取消">
+                        <div class="text">开始时间</div>
+                        <span class="tag right">
+                            <i class="icon icon-right"></i>
+                            <span class="value">{{birthday}}</span>
+                        </span>
+                    </datetime>
+                </div>
+                <div class="ui-cell">
+                    <datetime v-model="birthday" :min-year=1900 @on-change="change" title="" confirm-text="完成" cancel-text="取消">
+                        <div class="text">结束时间</div>
+                        <span class="tag right">
+                            <i class="icon icon-right"></i>
+                            <span class="value">{{birthday}}</span>
+                        </span>
+                    </datetime>
+                </div>
+                <div class="ui-cell">
+                    <div class="text">就读学校</div>
                     <span class="tag right">
                         <span class="value">sadfadfasdf</span>
                     </span>
                 </div>
                 <div class="ui-cell">
-                    <div class="text">类型</div>
+                    <div class="text">就读专业</div>
                     <span class="tag right">
                         <span class="value">sadfadfasdf</span>
                     </span>
                 </div>
                 <div class="ui-cell">
-                    <div class="text">第几任</div>
-                    <span class="tag right">
-                        <span class="value">sadfadfasdf</span>
-                    </span>
-                </div>
-                <div class="ui-cell">
-                    <div class="text">状态</div>
+                    <div class="text">备注</div>
                     <span class="tag right">
                         <span class="value">sadfadfasdf</span>
                     </span>
@@ -34,14 +46,18 @@
 <script>
     import { ltHeader } from 'components'
     import { mapActions } from 'vuex'
+    import { Datetime, Actionsheet } from 'vux'
     export default {
         data() {
             return {
-                title: '配偶信息'
+                title: '学习经历',
+                birthday: ''
             }
         },
         components: {
-            ltHeader
+            ltHeader,
+            Datetime,
+            Actionsheet
         },
         mounted() {
             this.$nextTick(() => {
@@ -55,7 +71,8 @@
             ]),
             onHaddle() {
                 // console.log(1212)
-            }
+            },
+            change() {}
         }
     }
 </script>

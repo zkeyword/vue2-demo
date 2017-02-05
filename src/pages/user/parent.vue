@@ -1,7 +1,7 @@
 <template>
     <section class="page-userSpouseList page-userParent">
-        <lt-header :title="title" :showBtn="isShowHeaderBtn" @on-haddle="onHaddle"></lt-header>
-        <footer>父母信息</footer>
+        <lt-header :title="title"></lt-header>
+        <footer @click="jump({title: '父母信息'})">新增父母信息</footer>
         <div class="lt-main">
             <div class="ui-block">
                 <div class="ui-cell">
@@ -30,7 +30,7 @@
                 </div>
                 <div class="ui-cell">
                     <div class="iconBtn">
-                        <span><i class="icon icon-bianji"></i>编辑</span>
+                        <span @click="jump({title: '父母信息'})"><i class="icon icon-bianji"></i>编辑</span>
                         <span><i class="icon icon-del"></i>删除</span>
                     </div>
                 </div>
@@ -41,62 +41,24 @@
 </template>
 <script>
     import { ltHeader } from 'components'
-    import { mapGetters, mapActions } from 'vuex'
-    // mapState
+    import { mapActions } from 'vuex'
     export default {
         data() {
             return {
-                title: '父母信息',
-                name: '',
-                type: '',
-                value: '',
-                isShowInputClose: false,
-                isShowHeaderBtn: true
+                title: '父母信息'
             }
         },
         components: {
             ltHeader
         },
-        computed: {
-            ...mapGetters([
-                'userFormName',
-                'userFormValue',
-                'userFormType',
-                'userFormTitle'
-            ])
-        },
-        watch: {
-            value() {
-                this.showInputClose()
-            }
-        },
-        mounted() {
-            this.$nextTick(() => {
-                let {title, type, name, value} = this.$route.query
-                this.title = title
-                this.name = name
-                this.type = type
-                this.value = value
-            })
-        },
         methods: {
             ...mapActions([
-                'postLogin',
-                'showToast',
-                'showLoading'
+                'postLogin'
             ]),
-            showInputClose() {
-                if (this.value) {
-                    this.isShowInputClose = true
-                }
+            jump(obj) {
+                this.$router.push({ name: 'userAddParent', query: obj })
             },
-            hideInputClose() {
-                this.isShowInputClose = false
-                this.value = ''
-            },
-            onHaddle() {
-                // console.log(1212)
-            }
+            del() { }
         }
     }
 </script>

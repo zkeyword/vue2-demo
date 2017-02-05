@@ -6,8 +6,23 @@
         </header>
         <lt-footer :type="2"></lt-footer>
         <div class="lt-main">
-            <div>关系查询</div>
+            <div class="sectionBox">
+                <div>
+                    <i class="icon icon-user3"></i>
+                    <input type="text" placeholder="家族成员A">
+                </div>
+                <em>与</em>
+                <div>
+                    <i class="icon icon-user3"></i>
+                    <input type="text" placeholder="家族成员B">
+                </div>
+                <span>关系查询</span>
+            </div>
             <chats :width="200" :height="300" :data="treeData"></chats>
+            <i class="icon icon-family" v-if="treeData.length"></i>
+        </div>
+        <div class="actionsheet">
+
         </div>
     </section>
 </template>

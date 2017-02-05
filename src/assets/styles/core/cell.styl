@@ -11,19 +11,30 @@
     .iconBtn
         text-align: right
         flex: 1
+        &.left
+            text-align: left
+            position: relative
+            span
+                padding: 0 0 0 23px
+                &.on
+                    color: #ff6600
+                .icon
+                    position: absolute
+                    left: 0
+                    top: 15px
         span
             display: inline-block
             height: 44px
             line-height: @height
             margin-right: 15px
             font-size: 15px
+            color: #666
             .icon
                 font-size: 20px
                 vertical-align: middle
                 margin-top: -4px
+            
     .weui_cell
         padding: 0 !important
         width: 100%
         color: #333
-        .text
-            border: 0 none

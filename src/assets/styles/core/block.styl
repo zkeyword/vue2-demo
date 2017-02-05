@@ -1,3 +1,9 @@
+.ui-blockHeader
+    padding: 0 0 0 15px
+    height: 40px
+    line-height: @height
+    &+.ui-block
+        margin: 0
 .ui-block
     background: #fff
     border-top: 1px solid #e0e0e0
@@ -61,7 +67,22 @@
                 width: 70%
                 border: 0 none
                 text-align: right
-                
+        &.multi
+            height: auto
+            min-height: 44px
+            border-bottom: 1px solid #e0e0e0
+            .title
+                width: 40px
+            .content
+                flex: 1
+                padding: 7px 15px 0 0
+                min-height: 30px
+                line-height: @min-height
+                color: #999
+
     .logout
         text-align: center
         width: 100%
+
+    .ui-text
+        padding: 15px 15px 15px 0

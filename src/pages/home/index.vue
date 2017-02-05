@@ -55,7 +55,7 @@
                 'postLogin'
             ]),
             jump() {
-                this.$router.push({ name: 'homeSummary' })
+                this.$router.push({ name: 'homeInfo' })
             }
         }
     }

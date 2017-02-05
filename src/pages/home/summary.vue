@@ -1,33 +1,24 @@
 <template>
-    <section class="page-home">
-        <header>
-            <ul>
-                <li class="on">家族介绍</li>
-                <li @click="jump()">家族族谱</li>
-            </ul>
-        </header>
+    <section>
+        <lt-header :title="title"></lt-header>
         <div class="lt-main">
-            家族图集
-            
+            <div class="ui-block">
+                <div class="ui-text">家族简介</div>
+            </div>
         </div>
     </section>
 </template>
 <script>
-    import { ltFooter } from 'components'
+    import { ltHeader } from 'components'
     import { mapActions } from 'vuex'
     export default {
         data() {
             return {
-                title: '找回密码',
-                mobile: '',
-                code: '',
-                isRequestCode: true,
-                codeText: '发送验证码',
-                codeTime: 60
+                title: '家族简介'
             }
         },
         components: {
-            ltFooter
+            ltHeader
         },
         mounted() {
             this.$nextTick(() => {
@@ -37,10 +28,7 @@
         methods: {
             ...mapActions([
                 'postLogin'
-            ]),
-            jump() {
-                this.$router.push({ name: 'home' })
-            }
+            ])
         }
     }
 </script>

@@ -33,7 +33,7 @@
                     <div class="text">儿女信息</div>
                     <span class="tag right"><i class="icon icon-right"></i></span>
                 </div>
-                <div class="ui-cell">
+                <div class="ui-cell" @click="jump('userAddress')">
                     <span class="tag"><i class="icon icon-dizhi"></i></span>
                     <div class="text">主要地址</div>
                     <span class="tag right"><i class="icon icon-right"></i></span>
