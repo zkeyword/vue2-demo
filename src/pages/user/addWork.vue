@@ -23,21 +23,15 @@
                 </div>
                 <div class="ui-cell">
                     <div class="text">就职单位</div>
-                    <span class="tag right">
-                        <span class="value">{{data.company_name}}</span>
-                    </span>
+                    <input class="tag right ui-input" v-model="data.company_name" placeholder="请填写就职单位">
                 </div>
                 <div class="ui-cell">
                     <div class="text">就职职位</div>
-                    <span class="tag right">
-                        <span class="value">{{data.position}}</span>
-                    </span>
+                    <input class="tag right ui-input" v-model="data.position" placeholder="请填写就职职位">
                 </div>
                 <div class="ui-cell">
                     <div class="text">备注</div>
-                    <span class="tag right">
-                        <span class="value">{{data.remark}}</span>
-                    </span>
+                    <input class="tag right ui-input" v-model="data.remark" placeholder="请填写就职职位">
                 </div>
             </div>
         </div>
