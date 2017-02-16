@@ -28,3 +28,15 @@ export function inheritName(id) {
     if (id === 1) return '父亲'
     if (id === 2) return '母亲'
 }
+
+export function degreeName(id) {
+    id = Number(id)
+    if (id === 1) return '小学'
+    if (id === 2) return '初中'
+    if (id === 3) return '中专'
+    if (id === 4) return '高中'
+    if (id === 5) return '大专'
+    if (id === 6) return '本科'
+    if (id === 7) return '硕士研究生'
+    if (id === 8) return '博士研究生'
+}

@@ -180,6 +180,8 @@
                     self: this,
                     params: this.data,
                     success(data) {
+                        this.showToast({ isShow: true, text: `操作成功` })
+                        this.$router.back()
                     }
                 })
             }

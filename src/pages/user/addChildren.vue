@@ -5,9 +5,7 @@
             <div class="ui-block">
                 <div class="ui-cell">
                     <div class="text">姓名</div>
-                    <span class="tag right">
-                        <span class="value">{{data.realname}}</span>
-                    </span>
+                    <input class="tag right ui-input" v-model="data.realname" placeholder="请填写该子女姓名">
                 </div>
                 <div class="ui-cell" @click="showMenu('sex')">
                     <div class="text">性别</div>
