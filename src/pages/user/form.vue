@@ -16,7 +16,7 @@
 </template>
 <script>
     import { ltHeader } from 'components'
-    import { mapGetters, mapActions } from 'vuex'
+    import { mapActions } from 'vuex'
     // mapState
     export default {
         data() {
@@ -31,14 +31,6 @@
         },
         components: {
             ltHeader
-        },
-        computed: {
-            ...mapGetters([
-                'userFormName',
-                'userFormValue',
-                'userFormType',
-                'userFormTitle'
-            ])
         },
         watch: {
             value() {
@@ -56,9 +48,8 @@
         },
         methods: {
             ...mapActions([
-                'postLogin',
                 'showToast',
-                'showLoading'
+                'updateInfo'
             ]),
             showInputClose() {
                 if (this.value) {
@@ -70,7 +61,17 @@
                 this.value = ''
             },
             onHaddle() {
-                // console.log(1212)
+                if (!this.value) return this.showToast({ isShow: true, text: `${this.title}不能为空!` })
+                let params = {}
+                params[this.name] = this.value
+                this.updateInfo({
+                    self: this,
+                    params,
+                    success() {
+                        this.showToast({ isShow: true, text: `操作成功` })
+                        this.$router.back()
+                    }
+                })
             }
         }
     }

@@ -4,6 +4,11 @@ import RouterMap from './routers'
 import store from './store'
 import './assets/icomoon/style.styl'
 import { getCookie } from 'utils/cookie'
+import * as filter from 'utils/filter'
+
+Object.keys(filter).forEach(key => {
+    Vue.filter(key, filter[key])
+})
 
 RouterMap.beforeEach(({meta, path}, from, next) => {
     // let { auth = true } = meta

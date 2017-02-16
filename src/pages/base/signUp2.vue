@@ -15,19 +15,30 @@
                     <span class="ui-label">排   行</span>
                     <input type="number" class="ui-input" placeholder="请输入您的排行" v-model="rank" maxlength="11">
                 </div>
-                <div class="ui-cell" @click="showMenus(1)" v-if="isShowParent">
+                <div class="ui-cell" @click="showMenus(1)">
                     <span class="ui-label">主继承</span>
                     <input type="text" class="ui-input" placeholder="请选择您的主继承" v-model="inherit" disabled>
                     <i class="icon icon-right"></i>
                 </div>
-                <div class="ui-cell" @click="showMenus(2)" v-if="isShowParent">
+                <div class="ui-cell" @click="showMenus(2)" v-if="key == 1 && isShowParent">
                     <span class="ui-label">父亲姓名</span>
                     <input type="text" class="ui-input" placeholder="请选择您的父亲姓名" v-model="father_name" disabled>
                     <i class="icon icon-right"></i>
                 </div>
-                <div class="ui-cell" v-if="isShowParent">
+                <div class="ui-cell" @click="showMenus(3)" v-if="key == 1 && isShowParent && isShowSpouse">
                     <span class="ui-label">母亲姓名</span>
-                    <input type="text" class="ui-input" placeholder="母亲姓名" v-model="mother_name" disabled>
+                    <input type="text" class="ui-input" placeholder="请选择您的母亲姓名" v-model="mother_name" disabled>
+                    <i class="icon icon-right"></i>
+                </div>
+                 <div class="ui-cell" @click="showMenus(2)" v-if="key == 2 && isShowParent">
+                    <span class="ui-label">母亲姓名</span>
+                    <input type="text" class="ui-input" placeholder="请选择您的母亲姓名" v-model="mother_name" disabled>
+                    <i class="icon icon-right"></i>
+                </div>
+                <div class="ui-cell" @click="showMenus(3)" v-if="key == 2 && isShowParent && isShowSpouse">
+                    <span class="ui-label">父亲姓名</span>
+                    <input type="text" class="ui-input" placeholder="请选择您的父亲姓名" v-model="father_name" disabled>
+                    <i class="icon icon-right"></i>
                 </div>
             </div>
             <div class="ui-btn max" v-bind:class="isNext" @click="register">注册</div>
@@ -56,10 +67,13 @@
                 mother_id: '',
                 isShow: false,
                 type: '',
+                key: '',
                 menus: {},
-                fatherData: {},
-                fatherIdData: {},
-                isShowParent: false
+                parentData: {},
+                parentIdData: {},
+                spouseData: {},
+                isShowParent: false,
+                isShowSpouse: false
             }
         },
         components: {
@@ -98,7 +112,9 @@
                         2: '母亲'
                     }
                 } else if (type === 2) {
-                    this.menus = this.fatherData
+                    this.menus = this.parentData
+                } else {
+                    this.menus = this.spouseData
                 }
                 this.isShow = true
             },
@@ -107,9 +123,10 @@
                 if (this.type === 1) {
                     this.inherit_type = key
                     this.inherit = this.menus[key]
+                    this.key = key
                 } else if (this.type === 2) {
                     this.father_name = this.menus[key]
-                    this.father_id = this.fatherIdData[key]
+                    this.father_id = this.parentIdData[key]
                     this.getSpouseList({
                         params: {
                             token: this.token,
@@ -117,10 +134,17 @@
                             member_id: key
                         },
                         success(data) {
+                            for (let i = 0, len = data.length; i < len; i++) {
+                                self.spouseData[`${data[i].id}`] = data[i].name
+                            }
                             self.mother_name = data[0].name
                             self.mother_id = data[0].id
+                            self.isShowSpouse = true
                         }
                     })
+                } else {
+                    this.mother_name = this.menus[key]
+                    this.mother_id = key
                 }
             },
             register() {
@@ -151,10 +175,10 @@
                     },
                     success(data) {
                         for (let i = 0, len = data.length; i < len; i++) {
-                            self.fatherData[`${data[i].member_id}`] = data[i].name
-                            self.fatherIdData[`${data[i].member_id}`] = data[i].id
+                            self.parentData[`${data[i].member_id}`] = data[i].name
+                            self.parentIdData[`${data[i].member_id}`] = data[i].id
+                            self.isShowParent = true
                         }
-                        self.isShowParent = true
                     }
                 })
             }

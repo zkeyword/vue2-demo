@@ -6,25 +6,25 @@
                 <div class="ui-cell">
                     <div class="text">账号</div>
                     <span class="tag left">
-                        <span class="value">sadfadfasdf</span>
+                        <span class="value">{{username}}</span>
                     </span>
                 </div>
                 <div class="ui-cell">
                     <div class="text">当前密码</div>
                     <span class="tag left">
-                        <input type="text" name="" id="" placeholder="请验证当前密码">
+                        <input type="text" v-model="data.ori_password" placeholder="请验证当前密码">
                     </span>
                 </div>
                 <div class="ui-cell">
                     <div class="text">新密码</div>
                     <span class="tag left">
-                        <input type="text" name="" id="" placeholder="请输入6-16位新密码">
+                        <input type="text" v-model="data.password" placeholder="请输入6-16位新密码">
                     </span>
                 </div>
                 <div class="ui-cell">
                     <div class="text">重复新密码</div>
                     <span class="tag left">
-                        <input type="text" name="" id="" placeholder="请再次输入">
+                        <input type="text" v-model="data.re_password" placeholder="请再次输入">
                     </span>
                 </div>
             </div> 
@@ -33,15 +33,14 @@
 </template>
 <script>
     import { ltHeader } from 'components'
-    import { mapGetters, mapActions } from 'vuex'
+    import { mapActions } from 'vuex'
     // mapState
     export default {
         data() {
             return {
-                title: '',
-                name: '',
-                type: '',
-                value: '',
+                title: '修改密码',
+                username: '',
+                data: {},
                 isShowInputClose: false,
                 isShowHeaderBtn: true
             }
@@ -49,33 +48,19 @@
         components: {
             ltHeader
         },
-        computed: {
-            ...mapGetters([
-                'userFormName',
-                'userFormValue',
-                'userFormType',
-                'userFormTitle'
-            ])
-        },
         watch: {
             value() {
                 this.showInputClose()
             }
         },
         mounted() {
-            this.$nextTick(() => {
-                let {title, type, name, value} = this.$route.query
-                this.title = title
-                this.name = name
-                this.type = type
-                this.value = value
-            })
+            let {username} = this.$route.query
+            this.username = username
         },
         methods: {
             ...mapActions([
-                'postLogin',
-                'showToast',
-                'showLoading'
+                'updatePassword',
+                'showToast'
             ]),
             showInputClose() {
                 if (this.value) {
@@ -87,7 +72,17 @@
                 this.value = ''
             },
             onHaddle() {
-                // console.log(1212)
+                if (!this.data.ori_password) return this.showToast({ isShow: true, text: `原密码不能为空!` })
+                if (!this.data.password) return this.showToast({ isShow: true, text: `新密码不能为空!` })
+                if (this.data.password.length < 6 || this.data.password.length > 16) return this.showToast({ isShow: true, text: `密码的字符长度不正确` })
+                if (!this.data.re_password) return this.showToast({ isShow: true, text: `重复不能为空!` })
+                if (this.data.re_password !== this.data.password) return this.showToast({ isShow: true, text: `两次输入不一致!` })
+                this.updatePassword({
+                    params: this.data,
+                    success() {
+                        this.$router.back()
+                    }
+                })
             }
         }
     }

@@ -1,8 +1,9 @@
 <template>
     <section class="page-userIndex">
-        <lt-footer :type="3"></lt-footer>
+        <lt-footer :type="3" v-if="isUserIndex"></lt-footer>
+        <lt-header :title="title" v-else></lt-header>
         <div class="lt-main">
-            <header>
+            <header class="header">
                 <div class="avatar">
                     <i class="icon icon-user2"></i>
                 </div>
@@ -23,12 +24,12 @@
                     <div class="text">配偶信息</div>
                     <span class="tag right"><i class="icon icon-right"></i></span>
                 </div>
-                <div class="ui-cell" @click="jump('userParent')">
+                <div class="ui-cell" @click="jump('userParent')" v-if="isUserIndex">
                     <span class="tag"><i class="icon icon-user"></i></span>
                     <div class="text">父母信息</div>
                     <span class="tag right"><i class="icon icon-right"></i></span>
                 </div>
-                <div class="ui-cell" @click="jump('userChildren')">
+                <div class="ui-cell" @click="jump('userChildren')" v-if="isUserIndex">
                     <span class="tag"><i class="icon icon-xinxi"></i></span>
                     <div class="text">儿女信息</div>
                     <span class="tag right"><i class="icon icon-right"></i></span>
@@ -53,18 +54,18 @@
                     <div class="text">主要经历</div>
                     <span class="tag right"><i class="icon icon-right"></i></span>
                 </div>
-                <div class="ui-cell" @click="jump('userHouseholds')">
+                <div class="ui-cell" @click="jump('userHouseholds')" v-if="isUserIndex">
                     <span class="tag"><i class="icon icon-list"></i></span>
                     <div class="text">户主户口</div>
                     <span class="tag right"><i class="icon icon-right"></i></span>
                 </div>
-                <div class="ui-cell" @click="jump('userMore')">
+                <div class="ui-cell" @click="jump('userMore')" v-if="isUserIndex">
                     <span class="tag"><i class="icon icon-more"></i></span>
                     <div class="text">更多</div>
                     <span class="tag right"><i class="icon icon-right"></i></span>
                 </div>
             </div>
-            <div class="ui-block">
+            <div class="ui-block" v-if="isUserIndex">
                 <div class="ui-cell" @click="logout">
                     <div class="logout">退出登录</div>
                 </div>
@@ -73,78 +74,49 @@
     </section>
 </template>
 <script>
-    import { ltFooter } from 'components'
+    import { ltHeader, ltFooter } from 'components'
     import { delCookie } from 'utils/cookie'
-    import { mapGetters, mapActions } from 'vuex'
+    import { mapActions } from 'vuex'
     export default {
         data() {
             return {
-                title: '找回密码',
-                mobile: '',
-                code: '',
-                isRequestCode: true,
-                codeText: '发送验证码',
-                codeTime: 60
+                title: '查看详细',
+                isUserIndex: true,
+                userId: undefined,
+                generations: '',
+                familySn: ''
             }
         },
         components: {
+            ltHeader,
             ltFooter
         },
-        computed: {
-            ...mapGetters([
-                'isLogin'
-            ]),
-            isGetCode() {
-                let isDisable = true
-                if (this.isRequestCode) {
-                    isDisable = this.mobile === ''
-                } else {
-                    isDisable = true
-                }
-                return {
-                    disable: isDisable
-                }
-            }
-        },
         mounted() {
-            this.$nextTick(() => {
-                // console.log(1)
+            let {userId} = this.$route.query
+            this.isUserIndex = userId === undefined
+            this.getMemberInfo({
+                self: this,
+                success(data) {
+                    this.userId = data.id
+                    this.familySn = data.family_sn
+                    this.generations = data.generations
+                }
             })
         },
         methods: {
             ...mapActions([
-                'postLogin',
-                'showToast',
-                'showLoading'
+                'getMemberInfo'
             ]),
             logout() {
                 delCookie('isLogin')
                 this.$router.push({ name: 'signIn' })
             },
-            getCode() {
-                // this.showLoading({
-                //    isShow: true,
-                //    text: '请稍等~~'
-                // })
-                if (!this.isRequestCode) return
-                let timer = setInterval(() => {
-                    --this.codeTime
-                    if (this.codeTime === 0) {
-                        this.codeTime = 0
-                        this.isRequestCode = true
-                        clearInterval(timer)
-                    }
-                }, 1000)
-                this.isRequestCode = false
-                this.codeText = '重新获取'
-                this.showToast({
-                    isShow: true,
-                    text: 'xxx'
-                })
-            },
             jump(name) {
-                this.$router.push({ name: name })
+                if (this.userId) {
+                    this.$router.push({ name: name, query: { userId: this.userId, familySn: this.familySn, generations: this.generations } })
+                }
             }
         }
     }
+
 </script>

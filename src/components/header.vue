@@ -37,7 +37,6 @@
             },
             onHaddle() {
                 this.$emit('on-haddle')
-                this.$router.back()
             }
         }
     }
