@@ -3,12 +3,14 @@
 ## 相关技术栈
 
 - vue
+- vue-router
 - vuex
 - stylus
 - eslint
 - webpack2
 - element Ui
 - axios
+- vux2
 
 ## 目录结构
 
